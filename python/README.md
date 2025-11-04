@@ -200,6 +200,12 @@ if agent:
 - **GitHub Repository**: [https://github.com/A2ABaseAI/sdks](https://github.com/A2ABaseAI/sdks)
 - **Full Documentation**: See the [repository](https://github.com/A2ABaseAI/sdks) for more examples and API reference.
 
+## 💬 Support
+
+Need help? Join our Discord community for support and discussions:
+
+- **Discord**: [https://discord.gg/qAncfHmYUm](https://discord.gg/qAncfHmYUm)
+
 ## License
 
 MIT License - see LICENSE file for details.
