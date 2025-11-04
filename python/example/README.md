@@ -81,15 +81,20 @@ PYTHONPATH=. python3 example/<example_name>.py
 
 ## Running in Google Colab
 
-Run examples directly in Google Colab:
+To run examples in Google Colab:
 
-**[Open Quick Start Notebook in Google Colab](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/quick_start.ipynb)**
+**Option 1: Open from GitHub**
+1. Go to [Google Colab](https://colab.research.google.com/)
+2. Click "File" → "Open notebook"
+3. Select the "GitHub" tab
+4. Enter: `A2ABaseAI/sdks`
+5. Navigate to `python/example/quick_start.ipynb` or any example file
 
-**Available Example Files (Google Colab can open Python files directly):**
-- [Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/customer_support_triage.py)
-- [Research Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/research_agent.py)
-- [File Manager Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/file_manager_agent.py)
-- [Web Development Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/web_development_agent.py)
+**Option 2: Manual Setup**
+1. Open [Google Colab](https://colab.research.google.com/)
+2. Create a new notebook
+3. Copy code from any example file in this directory
+4. Adapt for notebook use (remove `if __name__ == "__main__"` and use `await` directly)
 
 **Quick Start in Colab:**
 

@@ -38,53 +38,22 @@ node dist/example/research_agent.js
 node dist/example/web_development_agent.js
 ```
 
-## Running in Google Colab
+## Running in Notebooks
 
-Run examples directly in Google Colab with JavaScript:
+Google Colab primarily supports Python. For TypeScript/JavaScript, use:
 
-**Available Example Files (Google Colab can open TypeScript/JavaScript files directly):**
-- [Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/typescript/example/customer_support_triage.ts)
-- [Research Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/typescript/example/research_agent.ts)
-- [File Manager Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/typescript/example/file_manager_agent.ts)
-- [Web Development Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/typescript/example/web_development_agent.ts)
+**Option 1: Observable Notebooks**
+1. Go to [Observable](https://observablehq.com/)
+2. Create a new notebook
+3. Install: `npm install @belarabyai/baseai`
+4. Copy example code from files in this directory
 
-**Quick Start in Colab:**
-
-```javascript
-// Install the SDK
-!npm install @belarabyai/baseai
-
-import { BaseAI } from '@belarabyai/baseai';
-import { BaseAITool } from '@belarabyai/baseai';
-
-// Set API key (use Colab's secrets or environment variables)
-const apiKey = 'pk_xxx:sk_xxx';
-
-// Create client
-const client = new BaseAI({
-  apiKey,
-  apiUrl: 'https://a2abase.ai/api',
-});
-
-// Create thread and agent
-const thread = await client.Thread.create();
-const agent = await client.Agent.create({
-  name: 'Research Agent',
-  systemPrompt: 'You are a research assistant.',
-  mcpTools: [BaseAITool.WEB_SEARCH_TOOL, BaseAITool.BROWSER_TOOL],
-});
-
-// Run agent
-const run = await agent.run('Research the latest AI developments', thread);
-const stream = await run.getStream();
-
-// Stream results
-for await (const chunk of stream) {
-  console.log(chunk);
-}
-```
-
-**Note:** Click any notebook link above to open it directly in Google Colab.
+**Option 2: Jupyter with JavaScript kernel**
+1. Install: `npm install -g ijavascript`
+2. Install kernel: `jupyter kernelspec install --name javascript --user`
+3. Start Jupyter: `jupyter notebook`
+4. Create a new JavaScript notebook
+5. Copy example code from files in this directory
 
 ## Available Examples
 
