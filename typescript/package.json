@@ -1,6 +1,6 @@
 {
   "name": "@belarabyai/baseai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BaseAI SDK for TypeScript/JavaScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
