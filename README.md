@@ -96,12 +96,10 @@ Both SDKs include comprehensive examples:
 
 **Python:**
 - Run scripts: `cd python && PYTHONPATH=. python3 example/<name>.py`
-- **[Quick Start Notebook in Google Colab](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/quick_start.ipynb)**
-- **[Example: Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/customer_support_triage.py)** - See [Python README](./python/README.md#running-examples-in-google-colab)
+- Run in Google Colab: See [Python README](./python/README.md#running-examples-in-google-colab) for instructions
 
 **TypeScript:**
 - Run compiled: `npm run build && node dist/example/<name>.js`
-- **[Example: Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/typescript/example/customer_support_triage.ts)** - See [TypeScript README](./typescript/README.md#running-examples-in-google-colab)
 
 ### Available Tools
 
