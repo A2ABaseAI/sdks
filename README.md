@@ -4,8 +4,8 @@ Multi-language SDKs for interacting with the BaseAI platform. This repository co
 
 ## 📦 Available SDKs
 
-- **[Python](./python/)** - `pip install baseai-sdk` (or from GitHub)
-- **[TypeScript/JavaScript](./typescript/)** - `npm install @belarabyai/baseai`
+- **[Python](./python/)** - `pip install baseai-sdk` | [PyPI Package](https://pypi.org/project/baseai-sdk/)
+- **[TypeScript/JavaScript](./typescript/)** - `npm install @belarabyai/baseai` | [npm Package](https://www.npmjs.com/package/@belarabyai/baseai)
 
 ## 🚀 Quick Start
 
@@ -91,6 +91,17 @@ Both SDKs include comprehensive examples:
 
 - **[Python Examples](./python/example/)** - Tool-specific examples and common use cases
 - **[TypeScript Examples](./typescript/example/)** - Tool-specific examples and common use cases
+
+### Running Examples
+
+**Python:**
+- Run scripts: `cd python && PYTHONPATH=. python3 example/<name>.py`
+- **[Quick Start Notebook in Google Colab](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/quick_start.ipynb)**
+- **[Example: Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/customer_support_triage.py)** - See [Python README](./python/README.md#running-examples-in-google-colab)
+
+**TypeScript:**
+- Run compiled: `npm run build && node dist/example/<name>.js`
+- **[Example: Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/typescript/example/customer_support_triage.ts)** - See [TypeScript README](./typescript/README.md#running-examples-in-google-colab)
 
 ### Available Tools
 
