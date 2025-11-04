@@ -8,6 +8,8 @@ Python SDK for the BaseAI platform.
 pip install baseai-sdk
 ```
 
+📦 **Published on PyPI**: [https://pypi.org/project/baseai-sdk/](https://pypi.org/project/baseai-sdk/)
+
 Or install directly from GitHub:
 
 ```bash
@@ -86,6 +88,53 @@ cd python
 PYTHONPATH=. python3 example/run_all_examples.py
 ```
 
+### Running Examples in Google Colab
+
+Run examples directly in Google Colab:
+
+**[Open Quick Start Notebook in Google Colab](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/quick_start.ipynb)**
+
+**Or run any example in Google Colab (Python files):**
+- [Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/customer_support_triage.py)
+- [Research Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/research_agent.py)
+- [File Manager Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/file_manager_agent.py)
+- [Web Development Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/web_development_agent.py)
+
+**Quick Start in Colab:**
+
+```python
+# Install the SDK
+!pip install baseai-sdk
+
+import os
+from baseai import BaseAI
+from baseai.tools import BaseAITool
+
+# Set your API key (use Colab's secrets or environment variables)
+os.environ['BASEAI_API_KEY'] = 'pk_xxx:sk_xxx'
+
+# Create client
+client = BaseAI(api_key=os.getenv("BASEAI_API_KEY"), api_url="https://a2abase.ai/api")
+
+# Create thread and agent
+thread = await client.Thread.create()
+agent = await client.Agent.create(
+    name="My Assistant",
+    system_prompt="You are a helpful AI assistant.",
+    mcp_tools=[BaseAITool.WEB_SEARCH_TOOL],
+)
+
+# Run the agent
+run = await agent.run("Hello, how are you?", thread)
+stream = await run.get_stream()
+
+# Stream and display results
+async for chunk in stream:
+    print(chunk, end="")
+```
+
+**Note:** In Google Colab, you can use `await` directly in cells without `asyncio.run()`.
+
 ## Available Tools
 
 The SDK provides access to various tools through the `BaseAITool` enum:
@@ -142,7 +191,9 @@ if agent:
 
 ## Documentation
 
-See the [full documentation](https://github.com/A2ABaseAI/sdks) for more examples and API reference.
+- **PyPI Package**: [https://pypi.org/project/baseai-sdk/](https://pypi.org/project/baseai-sdk/)
+- **GitHub Repository**: [https://github.com/A2ABaseAI/sdks](https://github.com/A2ABaseAI/sdks)
+- **Full Documentation**: See the [repository](https://github.com/A2ABaseAI/sdks) for more examples and API reference.
 
 ## License
 

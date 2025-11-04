@@ -79,6 +79,54 @@ cd python
 PYTHONPATH=. python3 example/<example_name>.py
 ```
 
+## Running in Google Colab
+
+Run examples directly in Google Colab:
+
+**[Open Quick Start Notebook in Google Colab](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/quick_start.ipynb)**
+
+**Available Example Files (Google Colab can open Python files directly):**
+- [Customer Support Triage](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/customer_support_triage.py)
+- [Research Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/research_agent.py)
+- [File Manager Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/file_manager_agent.py)
+- [Web Development Agent](https://colab.research.google.com/github/A2ABaseAI/sdks/blob/main/python/example/web_development_agent.py)
+
+**Quick Start in Colab:**
+
+```python
+# Install the SDK
+!pip install baseai-sdk
+
+import os
+from baseai import BaseAI
+from baseai.tools import BaseAITool
+
+# Set API key (use Colab's secrets or environment variables)
+os.environ['BASEAI_API_KEY'] = 'pk_xxx:sk_xxx'
+
+# Create client
+client = BaseAI(api_key=os.getenv("BASEAI_API_KEY"), api_url="https://a2abase.ai/api")
+
+# Create thread
+thread = await client.Thread.create()
+
+# Create agent
+agent = await client.Agent.create(
+    name="Research Agent",
+    system_prompt="You are a research assistant.",
+    mcp_tools=[BaseAITool.WEB_SEARCH_TOOL, BaseAITool.BROWSER_TOOL],
+)
+
+# Run agent
+run = await agent.run("Research the latest AI developments", thread)
+
+# Stream results
+async for chunk in run.get_stream():
+    print(chunk, end="")
+```
+
+**Note:** In Google Colab, you can use `await` directly in cells. Click any notebook link above to open it directly in Colab.
+
 ## Example Structure
 
 Each example follows this pattern:
