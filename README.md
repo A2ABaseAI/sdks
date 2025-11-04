@@ -119,6 +119,12 @@ Each SDK has its own documentation:
 - [Python SDK Documentation](./python/README.md)
 - [TypeScript SDK Documentation](./typescript/README.md)
 
+## 💬 Support
+
+Need help? Join our Discord community for support and discussions:
+
+- **Discord**: [https://discord.gg/qAncfHmYUm](https://discord.gg/qAncfHmYUm)
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please see our contributing guidelines for each SDK.

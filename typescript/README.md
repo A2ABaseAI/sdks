@@ -108,3 +108,9 @@ The SDK provides access to various tools through the `BaseAITool` enum:
 - **GitHub Repository**: [https://github.com/A2ABaseAI/sdks](https://github.com/A2ABaseAI/sdks)
 - **Full Documentation**: See the [repository](https://github.com/A2ABaseAI/sdks) for more examples and API reference.
 
+## 💬 Support
+
+Need help? Join our Discord community for support and discussions:
+
+- **Discord**: [https://discord.gg/qAncfHmYUm](https://discord.gg/qAncfHmYUm)
+

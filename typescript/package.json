@@ -29,6 +29,7 @@
   "bugs": {
     "url": "https://github.com/A2ABaseAI/sdks/issues"
   },
+  "support": "https://discord.gg/qAncfHmYUm",
   "engines": {
     "node": ">=18.0.0"
   },
