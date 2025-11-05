@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "a2abase-sdk"
-version = "1.0.2"
+version = "1.0.3"
 description = "Official Python SDK for building powerful AI agents with access to 50+ built-in tools, 300+ integrations, and all major LLMs—all through a single, unified platform."
 readme = "README.md"
 requires-python = ">=3.11"
