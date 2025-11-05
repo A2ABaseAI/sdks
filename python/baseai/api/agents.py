@@ -144,6 +144,15 @@ def from_dict(cls, data: Dict[str, Any]):
         agents = [from_dict(AgentResponse, a) for a in data.get("agents", [])]
         pagination = from_dict(PaginationInfo, data.get("pagination", {}))
         return cls(agents=agents, pagination=pagination)
+    if cls == PaginationInfo:
+        # Ensure all required fields are present
+        required_fields = ['page', 'limit', 'total', 'pages']
+        filtered = {k: v for k, v in data.items() if k in cls.__dataclass_fields__}
+        # Add missing fields with defaults if needed
+        for field in required_fields:
+            if field not in filtered:
+                filtered[field] = 0
+        return cls(**filtered)
     if cls == AgentResponse:
         current_version = None
         if data.get("current_version"):

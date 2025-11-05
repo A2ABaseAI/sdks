@@ -11,3 +11,5 @@ class BaseAI:
         self.Agent = BaseAIAgent(self._agents_client)
         self.Thread = BaseAIThread(self._threads_client)
 
+    async def get_agents(self, page: int = 1, limit: int = 1000) -> agents.AgentsResponse:
+        return await self._agents_client.get_agents(page=page, limit=limit)
