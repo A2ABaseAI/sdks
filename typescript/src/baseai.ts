@@ -3,7 +3,7 @@
  */
 
 import { APIClient } from './api/client';
-import { AgentsClient } from './api/agents';
+import { AgentsClient, AgentsResponse } from './api/agents';
 import { ThreadsClient } from './api/threads';
 import { BaseAIAgent } from './agent';
 import { BaseAIThread } from './thread';
@@ -34,6 +34,20 @@ export class BaseAI {
 
     this.Agent = new BaseAIAgent(this.agentsClient);
     this.Thread = new BaseAIThread(this.threadsClient);
+  }
+
+  /**
+   * Get agents with pagination
+   * This matches the Python SDK's get_agents method
+   */
+  async getAgents(params?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    sort_by?: string;
+    sort_order?: string;
+  }): Promise<AgentsResponse> {
+    return this.agentsClient.getAgents(params);
   }
 }
 
