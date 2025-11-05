@@ -69,6 +69,29 @@ export interface AgentStartResponse {
   status: string;
 }
 
+/**
+ * Normalizes PaginationInfo to ensure all required fields are present
+ * This matches the Python SDK's from_dict behavior
+ */
+function normalizePaginationInfo(data: any): PaginationInfo {
+  const requiredFields = ['page', 'limit', 'total', 'pages'];
+  const normalized: PaginationInfo = {
+    page: data?.page ?? 0,
+    limit: data?.limit ?? 0,
+    total: data?.total ?? 0,
+    pages: data?.pages ?? 0,
+  };
+  
+  // Ensure all required fields are present
+  for (const field of requiredFields) {
+    if (normalized[field as keyof PaginationInfo] === undefined) {
+      normalized[field as keyof PaginationInfo] = 0;
+    }
+  }
+  
+  return normalized;
+}
+
 export class ThreadsClient {
   private client: APIClient;
 
@@ -77,7 +100,12 @@ export class ThreadsClient {
   }
 
   async getThreads(params?: { page?: number; limit?: number }): Promise<ThreadsResponse> {
-    return this.client.get<ThreadsResponse>('/threads', params);
+    const response = await this.client.get<ThreadsResponse>('/threads', params);
+    // Normalize pagination info to ensure all required fields are present
+    return {
+      ...response,
+      pagination: normalizePaginationInfo(response.pagination),
+    };
   }
 
   async getThread(threadId: string): Promise<Thread> {

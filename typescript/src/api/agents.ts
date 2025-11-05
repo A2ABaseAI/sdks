@@ -104,6 +104,29 @@ export interface DeleteAgentResponse {
   message: string;
 }
 
+/**
+ * Normalizes PaginationInfo to ensure all required fields are present
+ * This matches the Python SDK's from_dict behavior
+ */
+function normalizePaginationInfo(data: any): PaginationInfo {
+  const requiredFields = ['page', 'limit', 'total', 'pages'];
+  const normalized: PaginationInfo = {
+    page: data?.page ?? 0,
+    limit: data?.limit ?? 0,
+    total: data?.total ?? 0,
+    pages: data?.pages ?? 0,
+  };
+  
+  // Ensure all required fields are present
+  for (const field of requiredFields) {
+    if (normalized[field as keyof PaginationInfo] === undefined) {
+      normalized[field as keyof PaginationInfo] = 0;
+    }
+  }
+  
+  return normalized;
+}
+
 export class AgentsClient {
   private client: APIClient;
 
@@ -118,7 +141,12 @@ export class AgentsClient {
     sort_by?: string;
     sort_order?: string;
   }): Promise<AgentsResponse> {
-    return this.client.get<AgentsResponse>('/agents', params);
+    const response = await this.client.get<AgentsResponse>('/agents', params);
+    // Normalize pagination info to ensure all required fields are present
+    return {
+      ...response,
+      pagination: normalizePaginationInfo(response.pagination),
+    };
   }
 
   async getAgent(agentId: string): Promise<AgentResponse> {
