@@ -4,7 +4,17 @@
 
 Official Python SDK for building powerful AI agents with access to 50+ built-in tools, 300+ integrations, and all major LLMs—all through a single, unified platform.
 
-📹 **Watch the Demo**: [YouTube Video](https://youtu.be/bxJvMlVs2Mg)
+---
+
+## 🎥 Watch the Demo
+
+<a href="https://youtu.be/bxJvMlVs2Mg">
+  <img src="https://img.youtube.com/vi/bxJvMlVs2Mg/maxresdefault.jpg" alt="BaseAI SDK Demo" style="width:100%;">
+</a>
+
+**👉 [Watch on YouTube](https://youtu.be/bxJvMlVs2Mg)**
+
+---
 
 ## 🚀 Why BaseAI?
 
