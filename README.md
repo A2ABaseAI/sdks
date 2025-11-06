@@ -4,6 +4,8 @@
 
 Official Python and TypeScript/JavaScript SDKs for building powerful AI agents with access to 50+ built-in tools, 300+ integrations, and all major LLMs—all through a single, unified platform.
 
+📹 **Watch the Demo**: [YouTube Video](https://youtu.be/bxJvMlVs2Mg)
+
 ## 🚀 Why BaseAI?
 
 **Stop juggling multiple tools, APIs, and accounts.** BaseAI consolidates everything you need into one simple SDK.
