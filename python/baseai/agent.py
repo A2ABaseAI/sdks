@@ -145,7 +145,7 @@ class BaseAIAgent:
     async def find_by_name(self, name: str) -> Agent | None:
         try:
             # naive scan of first page; adjust if backend supports search param
-            resp = await self._client.get_agents(page=1, limit=10000)
+            resp = await self._client.get_agents(page=1, limit=100)
             for a in resp.agents:
                 if a.name == name:
                     return Agent(self._client, a.agent_id)
