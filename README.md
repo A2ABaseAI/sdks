@@ -1,75 +1,132 @@
 # BaseAI SDKs
 
-> **One SDK. Unlimited Tools. Build AI Agents in Minutes.**
+<p align="center">
+  <img src="https://a2abase.ai/belarabyai-symbol.svg" alt="AI coding gif" width="110" />
+</p>
 
-Official Python and TypeScript/JavaScript SDKs for building powerful AI agents with access to 50+ built-in tools, 300+ integrations, and all major LLMs—all through a single, unified platform.
+<p align="center">
+  <b>One import: tools, auth, sandboxes and deployment included.</b>
+</p>
+
+<p align="center">
+  <a href="https://pypi.org/project/baseai-sdk/"><img src="https://img.shields.io/pypi/v/baseai-sdk?label=Python%20SDK" alt="PyPI"></a>
+  <a href="https://www.npmjs.com/package/@belarabyai/baseai"><img src="https://img.shields.io/npm/v/@belarabyai/baseai?label=TypeScript%20SDK" alt="npm"></a>
+  <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
+  <!-- <a href="https://discord.gg/qAncfHmYUm"><img src="https://img.shields.io/discord/000000000000000000?label=Discord&logo=discord&logoColor=white" alt="Discord"></a> -->
+  <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
+  <img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT License">
+</p>
 
 ---
 
-## 🎥 Watch the Demo
+> BaseAI Python and TypeScript SDKs for building and shipping production grade AI agents.  
+> One line gives you access to 50+ tools, 300+ integrations, and all major LLMs through a single unified platform.
 
-<a href="https://youtu.be/bxJvMlVs2Mg">
-  <img src="https://img.youtube.com/vi/bxJvMlVs2Mg/maxresdefault.jpg" alt="BaseAI SDK Demo" style="width:100%;">
-</a>
+BaseAI SDK handles authentication, tool execution, sandboxes, and integrations so you can stay focused on agent logic.  
+Bring your own tool subscriptions or use ours. Migrate between providers without touching your agent code.
 
-**👉 [Watch on YouTube](https://youtu.be/bxJvMlVs2Mg)**
 
----
+## 🔍 What is BaseAI SDK?
 
-## 🚀 Why BaseAI?
+```python
+from baseai.tools import BaseAITool
 
-**Stop juggling multiple tools, APIs, and accounts.** BaseAI consolidates everything you need into one simple SDK.
+# Hundreds of ready to use, tools for agents
+tool = BaseAITool.*
+```
 
-### The Problem You're Solving
+- One import gives your agents access to a large tool catalog  
+- One API key unlocks better rates with the providers you already use  
+- Ship faster with batteries included workflows, sandboxes, and deployments  
 
-Building AI agents today means:
-- ❌ Managing 10+ different API keys and accounts
-- ❌ Integrating multiple libraries and SDKs
-- ❌ Searching for the right tools and benchmarking
-- ❌ Building custom integrations from scratch
-- ❌ Dealing with authentication and security concerns
-- ❌ Paying multiple subscription fees
 
-### The BaseAI Solution
+<!-- ## 🎥 See it in action
 
-**One SDK. One API key. Everything you need.**
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=bxJvMlVs2Mg">
+    <img src="https://img.youtube.com/vi/bxJvMlVs2Mg/maxresdefault.jpg" alt="BaseAI SDK Demo" width="50%">
+  </a>
+</p> -->
 
-- ✅ **50+ built-in tools** - Everything from web search to image editing to web development
-- ✅ **300+ MCP integrations** - Access 200+ Composio integrations (Gmail, Slack, GitHub, etc.) plus custom MCP servers
-- ✅ **All LLMs in one place** - Unified access to multiple language models
-- ✅ **Isolated sandboxes** - Secure execution environments built-in
-- ✅ **Pay-as-you-go pricing** - 80% cheaper than alternatives
-- ✅ **Type-safe SDKs** - Full IDE support for Python and TypeScript
 
-**Install one SDK. Access everything. Build a working prototype in minutes.**
+## 🔑 Get your API key
 
-## 💰 Pricing
+1. Sign up at **[BaseAI Dashboard](https://a2abase.ai/settings/api-keys)**
+2. Create an API key
+3. Set it locally
 
-### Pay-As-You-Go Model
+```bash
+export BASEAI_API_KEY="pk_xxx:sk_xxx"
+```
+- **Python**: `pip install baseai-sdk`  
+- **TypeScript**: `npm install @belarabyai/baseai`  
 
-BaseAI uses transparent, pay-as-you-go pricing with **no hidden fees**.
 
-**80% Cheaper Than Alternatives**
 
-Unlike traditional platforms that require:
-- Multiple subscription fees for different services
-- Per-user licensing costs
-- Minimum monthly commitments
-- Platform lock-in fees
+You are ready to build.
 
-BaseAI charges you only for what you use, when you use it. No minimums. Just simple, transparent pricing that scales with your needs.
 
-### What You Get
+### Core capabilities
 
-- **Access to all tools** - No per-tool pricing
-- **All LLMs** - Unified access without separate accounts
-- **300+ integrations** - No per-integration fees
-- **Isolated sandboxes** - Included at no extra cost
-- **Full SDK support** - Python and TypeScript included
+- Agent and workflow management  
+- Tool orchestration and execution  
+- Secure sandboxes for code, shells, and browsers  
+- Long term knowledge and document storage  
+- Deep integration library through MCP  
 
-**Get started today**: [Get your API key](https://a2abase.ai/settings/api-keys)
+Both SDKs expose the same high level concepts: `BaseAI`, `Agent`, `Thread`, `Run`, and the `BaseAITool`.
 
-## 🚀 Quick Start
+
+## 📊 Tool categories at a glance
+
+| Category               | Examples                                           | Primary use cases                          |
+| ---------------------- | -------------------------------------------------- | -------------------------------------------|
+| File and workspace     | Files, Upload, Knowledge Base                      | Code, docs, configs, retrieval             |
+| Development            | Shell, Web Dev, Deploy, Expose                     | Build and ship apps from inside agents     |
+| Web and browser        | Browser, Advanced Browser, Web Search, Image Search| Scraping, research, end to end automation  |
+| Content creation       | Docs, Sheets, Presentations, Design                | Reports, decks, dashboards, creative work  |
+| AI and vision          | Vision, Image Edit                                 | Screenshot analysis, visual agents         |
+| Data and integrations  | Data Providers, MCP integrations                   | Connect SaaS, CRMs, clouds, and databases  |
+| Search                 | People Search, Company Search                      | Prospecting and enrichment                 |
+| System automation      | Computer Automation                                | GUI and desktop control                    |
+
+For the complete tool reference see the SDK specific docs.
+
+
+
+
+
+## ✅ The BaseAI solution
+
+**One SDK. One API key. Everything wired together.**
+
+- ✅ 50+ built in tools  
+  Web search, browser control, files, web dev, docs, sheets, presentations, vision, images, and more  
+- ✅ 300+ MCP integrations  
+  Connect Gmail, Slack, GitHub, Notion, CRMs, databases, cloud, and hundreds of services  
+- ✅ All major LLMs behind one interface  
+  Swap models and providers without touching your agent code  
+- ✅ Secure, isolated sandboxes  
+  Run code, shells, browsers, and tools in contained environments  
+- ✅ Pay as you go  
+  Only pay for what runs. No platform lock in, no per seat fees  
+- ✅ Type safe SDKs  
+  Full IntelliSense and autocomplete in Python and TypeScript  
+
+
+No More:
+- ❌ Juggling 10+ API keys and accounts  
+- ❌ Gluing together multiple SDKs and libraries  
+- ❌ Hunting for the right tools and benchmarking them  
+- ❌ Writing fragile one off integrations  
+- ❌ Owning all auth and security yourself  
+- ❌ Paying for a pile of separate subscriptions  
+
+**Install one SDK, call one client, ship a working agent in minutes.**
+
+
+
+## 🚀 Quick start
 
 ### Python
 
@@ -85,14 +142,14 @@ async def main():
         raise ValueError("Please set BASEAI_API_KEY environment variable")
     
     client = BaseAI(api_key=api_key, api_url="https://a2abase.ai/api")
-    
+
     thread = await client.Thread.create()
     agent = await client.Agent.create(
         name="My Assistant",
         system_prompt="You are a helpful AI assistant.",
         mcp_tools=[BaseAITool.WEB_SEARCH_TOOL],
     )
-    
+
     run = await agent.run("Hello, how are you?", thread)
     stream = await run.get_stream()
     async for chunk in stream:
@@ -101,11 +158,10 @@ async def main():
 asyncio.run(main())
 ```
 
-### TypeScript/JavaScript
+### TypeScript / JavaScript
 
 ```typescript
-import { BaseAI } from '@belarabyai/baseai';
-import { BaseAITool } from '@belarabyai/baseai';
+import { BaseAI, BaseAITool } from '@belarabyai/baseai';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -127,7 +183,7 @@ async function main() {
 
   const run = await agent.run('Hello, how are you?', thread);
   const stream = await run.getStream();
-  
+
   for await (const chunk of stream) {
     process.stdout.write(chunk);
   }
@@ -136,172 +192,124 @@ async function main() {
 main();
 ```
 
-## 🔑 Getting Your API Key
 
-1. Sign up at [BaseAI](https://a2abase.ai/settings/api-keys)
-2. Get your API key from the dashboard
-3. Set it as an environment variable:
+## 🛠 Tooling overview
 
-```bash
-export BASEAI_API_KEY="pk_xxx:sk_xxx"
-```
+Both SDKs expose a unified `BaseAITool` enum that covers the full tool catalog.
 
-That's it! You're ready to build.
+Instead of configuring dozens of separate tools, you enable categories and get a coherent surface:
 
-## ✨ What's Included
+### File and workspace
 
-### SDKs
+- File operations: create, read, edit, rewrite, delete  
+- Upload files into the sandbox workspace  
+- Knowledge base with semantic search, sync, and long term memory  
 
-- **Python SDK**: `pip install baseai-sdk` | [PyPI Package](https://pypi.org/project/baseai-sdk/)
-- **TypeScript SDK**: `npm install @belarabyai/baseai` | [npm Package](https://www.npmjs.com/package/@belarabyai/baseai)
+Typical uses: codegen, configuration files, document workflows, retrieval for agents.
 
-### Resources
+### Development and deployment
 
-- **30+ real-world examples** - Ready-to-use examples for common use cases
-- **Google Colab integration** - Run examples directly in Colab notebooks
-- **Full documentation** - Comprehensive guides and API reference
-- **Type-safe APIs** - Full IntelliSense support in your IDE
+- Shell tools in isolated environments  
+- Web dev tools for React, Next.js, Vite, and shadcn based apps  
+- Deployment helpers and port exposure for preview links  
 
-## 🛠️ Available Tools
+Typical uses: build agents that scaffold apps, run migrations, deploy small services.
 
-Both SDKs provide access to the same comprehensive set of tools through the `BaseAITool` enum:
+### Web and browser automation
 
-### File Management
-- `FILES_TOOL` - Read, write, and edit files in the sandbox
-- `UPLOAD_FILE_TOOL` - Upload files to the sandbox workspace
+- Standard web search and scraping  
+- Browser automation with full DOM control  
+- Multi tab flows, form filling, scrolling, screenshots  
 
-### Development & Automation
-- `SHELL_TOOL` - Execute shell commands in isolated sandboxes
-- `WEB_DEV_TOOL` - Create and manage modern web applications (Next.js, React, Vite, shadcn/ui)
-- `DEPLOY_TOOL` - Deploy web applications to production
-- `EXPOSE_TOOL` - Expose local services to the internet
-- Project templates - Scaffold projects from predefined templates
+Typical uses: research agents, competitor intelligence, test runners, web workflows.
 
-### Image & Vision
-- `VISION_TOOL` - Analyze and understand images with AI
-- `IMAGE_SEARCH_TOOL` - Search for images on the web
-- `IMAGE_EDIT_TOOL` - Edit and manipulate images
-- `DESIGN_TOOL` - Design and create visual content
+### Content and productivity
 
-### Content Creation
-- `DOCS_TOOL` - Create and manage documents (HTML, Markdown formats)
-- `SHEETS_TOOL` - Create and manage spreadsheets with data analysis, visualization, and formatting
-- `PRESENTATION_TOOL` - Create and manage presentations
-- `PRESENTATION_OUTLINE_TOOL` - Create presentation outlines
+- Docs, sheets, and presentations  
+- Design and image editing tools  
+- Presentation outlines and structured content planning  
 
-### Search & Browser
-- `WEB_SEARCH_TOOL` - Search the web for information
-- `BROWSER_TOOL` - Browse websites and interact with web pages (navigate, click, fill forms, scroll)
+Typical uses: report writers, slide generators, internal tooling, marketing assistants.
 
-### Research & Intelligence
-- People search - Search for people and enrich profiles
-- Company search - Search for companies and business information
-- Paper search - Search academic papers and research documents
-- Web search - General web search capabilities
+### AI and vision
 
-### Knowledge & Data
-- `KB_TOOL` - Access and manage knowledge base (local and global sync)
-- `DATA_PROVIDERS_TOOL` - Access structured data from providers:
-  - LinkedIn - Professional network data
-  - Yahoo Finance - Financial market data
-  - Amazon - Product and marketplace data
-  - Zillow - Real estate data
-  - Twitter - Social media data
-  - ActiveJobs - Job listings data
+- Vision tools for screenshots and document images  
+- Image generation and editing  
 
-### Agent Management
-- Agent creation - Create and configure AI agents
-- Agent configuration - Manage agent settings and versions
-- Workflow management - Create and manage agent workflows
-- Trigger management - Set up automated triggers
-- Credential profiles - Manage API credentials
+Typical uses: UI review, PDF parsing, creative image agents.
 
-### Task Management
-- Task list - Create, update, and manage tasks organized by sections
-- Task tracking - Track completion status and progress
-- Batch operations - Manage multiple tasks at once
+### Data and integrations
 
-### Communication
-- Message tool - Ask questions, inform users, and mark completion
-- Message expansion - Expand truncated messages from previous conversations
+Through data provider tools and MCP you can connect to:
 
-### Automation
-- Computer use - Control sandbox browser and GUI (mouse, keyboard, screenshots)
-- Document parser - Parse and extract data from documents
+- Productivity: Gmail, Calendar, Slack, Notion, Linear, Asana, Jira, Trello  
+- Dev and cloud: GitHub, GitLab, Bitbucket, Docker Hub, AWS, GCP, Azure  
+- CRM and sales: Salesforce, HubSpot, Pipedrive, Zoho, Intercom  
+- Data and storage: Google Sheets, Drive, Dropbox, MongoDB, Postgres, MySQL  
+- Marketing and social: X, LinkedIn, Facebook, Instagram, Mailchimp, SendGrid  
+- Commerce and payments: Shopify, Stripe, PayPal, WooCommerce, Square  
 
-### Templates & Scaffolding
-- Project templates - Generate projects from predefined templates
-- Template search - Search and discover available templates
+Plug in via Composio MCP servers or your own MCP endpoints.  
+BaseAI manages auth, credentials, and routing for you.
 
-## 🔌 MCP Integrations
+### Search and automation
 
-BaseAI supports **300+ MCP (Model Context Protocol) integrations** through Composio and custom MCP servers, allowing you to connect any MCP-compatible server. MCPs can be connected via:
+- People search and company search for lead gen and enrichment  
+- Computer and desktop automation for full system level workflows  
 
-- HTTP/HTTPS endpoints
-- SSE (Server-Sent Events)
-- stdio (standard input/output)
-
-### Composio MCP Integrations (200+)
-
-BaseAI integrates with [Composio.dev](https://composio.dev) to provide access to **200+ pre-configured MCP servers** including:
-
-**Productivity & Communication**
-- Gmail, Google Calendar, Slack, Microsoft Teams, Notion, Linear, Asana, Jira, Trello, Airtable
-
-**Code & Development**
-- GitHub, GitLab, Bitbucket, Docker Hub, AWS, Google Cloud Platform, Azure
-
-**CRM & Sales**
-- Salesforce, HubSpot, Pipedrive, Zoho CRM, Intercom
-
-**Data & Analytics**
-- Google Sheets, Google Drive, Dropbox, Airtable, MongoDB, PostgreSQL, MySQL
-
-**Marketing & Social**
-- Twitter/X, LinkedIn, Facebook, Instagram, Mailchimp, SendGrid
-
-**E-commerce & Payments**
-- Shopify, Stripe, PayPal, WooCommerce, Square
-
-**And 150+ more integrations** including project management tools, databases, cloud services, APIs, and business applications.
-
-### Custom MCP Servers
-
-You can also connect any custom MCP-compatible server by providing the MCP endpoint URL. This enables integration with any tool, API, or service that follows the Model Context Protocol standard.
+---
 
 ## 📚 Examples
 
-Both SDKs include comprehensive examples:
+Both SDKs ship with real world examples.
 
-- **[Python Examples](./python/example/)** - Tool-specific examples and common use cases
-- **[TypeScript Examples](./typescript/example/)** - Tool-specific examples and common use cases
+- **Python**: `./python/example/`  
+- **TypeScript**: `./typescript/example/`  
 
-### Running Examples
+Run examples:
 
-**Python:**
-- Run scripts: `cd python && PYTHONPATH=. python3 example/<name>.py`
-- Run in Google Colab: See [Python README](./python/README.md#running-examples-in-google-colab) for instructions
+```bash
+# Python
+cd python
+PYTHONPATH=. python3 example/<name>.py
 
-**TypeScript:**
-- Run compiled: `npm run build && node dist/example/<name>.js`
+# TypeScript
+npm install
+npm run build
+node dist/example/<name>.js
+```
+
+You can also run Python examples directly in Google Colab.  
+See `python/README.md` for details.
+
+---
 
 ## 📖 Documentation
 
-Each SDK has its own comprehensive documentation:
+- [Python SDK docs](./python/README.md)  
+- [TypeScript SDK docs](./typescript/README.md)  
 
-- [Python SDK Documentation](./python/README.md)
-- [TypeScript SDK Documentation](./typescript/README.md)
+---
 
 ## 💬 Support
 
-Need help? Join our Discord community for support and discussions:
+- Discord: https://discord.gg/qAncfHmYUm  
 
-- **Discord**: [https://discord.gg/qAncfHmYUm](https://discord.gg/qAncfHmYUm)
+Bug reports and feature requests are welcome through GitHub issues.
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see our contributing guidelines for each SDK.
+Contributions are welcome.
+
+- Open an issue to discuss larger changes  
+- Submit pull requests for bug fixes or new examples  
+- Follow the style and lint rules for each SDK  
+
+---
 
 ## 📄 License
 
-MIT License - see LICENSE file for details.
+Released under the **MIT License**.  
+See `LICENSE` for full details.
