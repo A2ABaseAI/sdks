@@ -31,7 +31,7 @@ Bring your own tool subscriptions or use ours. Migrate between providers without
 ```python
 from baseai.tools import BaseAITool
 
-# Hundreds of ready to use, tools for agents
+# Hundreds of ready to use integration and tools for agents
 tool = BaseAITool.*
 ```
 
