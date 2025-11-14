@@ -1,4 +1,4 @@
-# BaseAI SDKs
+# A2ABaseAI SDKs
 
 <p align="center">
   <img src="https://a2abase.ai/belarabyai-symbol.svg" alt="AI coding gif" width="110" />
@@ -19,14 +19,14 @@
 
 ---
 
-> BaseAI Python and TypeScript SDKs for building and shipping production grade AI agents.  
+> A2ABaseAI Python and TypeScript SDKs for building and shipping production grade AI agents.  
 > One line gives you access to 50+ tools, 300+ integrations, and all major LLMs through a single unified platform.
 
-BaseAI SDK handles authentication, tool execution, sandboxes, and integrations so you can stay focused on agent logic.  
+A2ABaseAI SDK handles authentication, tool execution, sandboxes, and integrations so you can stay focused on agent logic.  
 Bring your own tool subscriptions or use ours. Migrate between providers without touching your agent code.
 
 
-## 🔍 What is BaseAI SDK?
+## 🔍 What is A2ABaseAI SDK?
 
 ```python
 from baseai.tools import BaseAITool
@@ -44,14 +44,14 @@ tool = BaseAITool.*
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=bxJvMlVs2Mg">
-    <img src="https://img.youtube.com/vi/bxJvMlVs2Mg/maxresdefault.jpg" alt="BaseAI SDK Demo" width="50%">
+    <img src="https://img.youtube.com/vi/bxJvMlVs2Mg/maxresdefault.jpg" alt="A2ABaseAI SDK Demo" width="50%">
   </a>
 </p> -->
 
 
 ## 🔑 Get your API key
 
-1. Sign up at **[BaseAI Dashboard](https://a2abase.ai/settings/api-keys)**
+1. Sign up at **[A2ABaseAI Dashboard](https://a2abase.ai/settings/api-keys)**
 2. Create an API key
 3. Set it locally
 
@@ -74,7 +74,7 @@ You are ready to build.
 - Long term knowledge and document storage  
 - Deep integration library through MCP  
 
-Both SDKs expose the same high level concepts: `BaseAI`, `Agent`, `Thread`, `Run`, and the `BaseAITool`.
+Both SDKs expose the same high level concepts: `A2ABaseAI`, `Agent`, `Thread`, `Run`, and the `A2ABaseAITool`.
 
 
 ## 📊 Tool categories at a glance
@@ -96,7 +96,7 @@ For the complete tool reference see the SDK specific docs.
 
 
 
-## ✅ The BaseAI solution
+## ✅ The A2ABaseAI solution
 
 **One SDK. One API key. Everything wired together.**
 
@@ -133,21 +133,21 @@ No More:
 ```python
 import asyncio
 import os
-from baseai import BaseAI
-from baseai.tools import BaseAITool
+from baseai import A2ABaseAI
+from baseai.tools import A2ABaseAITool
 
 async def main():
     api_key = os.getenv("BASEAI_API_KEY")
     if not api_key:
         raise ValueError("Please set BASEAI_API_KEY environment variable")
     
-    client = BaseAI(api_key=api_key, api_url="https://a2abase.ai/api")
+    client = A2ABaseAI(api_key=api_key, api_url="https://a2abase.ai/api")
 
     thread = await client.Thread.create()
     agent = await client.Agent.create(
         name="My Assistant",
         system_prompt="You are a helpful AI assistant.",
-        mcp_tools=[BaseAITool.WEB_SEARCH_TOOL],
+        mcp_tools=[A2ABaseAITool.WEB_SEARCH_TOOL],
     )
 
     run = await agent.run("Hello, how are you?", thread)
@@ -161,7 +161,7 @@ asyncio.run(main())
 ### TypeScript / JavaScript
 
 ```typescript
-import { BaseAI, BaseAITool } from '@belarabyai/baseai';
+import { A2ABaseAI, A2ABaseAITool } from '@belarabyai/baseai';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -169,7 +169,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new BaseAI({
+  const client = new A2ABaseAI({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -178,7 +178,7 @@ async function main() {
   const agent = await client.Agent.create({
     name: 'My Assistant',
     systemPrompt: 'You are a helpful AI assistant.',
-    mcpTools: [BaseAITool.WEB_SEARCH_TOOL],
+    mcpTools: [A2ABaseAITool.WEB_SEARCH_TOOL],
   });
 
   const run = await agent.run('Hello, how are you?', thread);
@@ -195,7 +195,7 @@ main();
 
 ## 🛠 Tooling overview
 
-Both SDKs expose a unified `BaseAITool` enum that covers the full tool catalog.
+Both SDKs expose a unified `A2ABaseAITool` enum that covers the full tool catalog.
 
 Instead of configuring dozens of separate tools, you enable categories and get a coherent surface:
 
@@ -250,14 +250,13 @@ Through data provider tools and MCP you can connect to:
 - Commerce and payments: Shopify, Stripe, PayPal, WooCommerce, Square  
 
 Plug in via Composio MCP servers or your own MCP endpoints.  
-BaseAI manages auth, credentials, and routing for you.
+A2ABaseAI manages auth, credentials, and routing for you.
 
 ### Search and automation
 
 - People search and company search for lead gen and enrichment  
 - Computer and desktop automation for full system level workflows  
 
----
 
 ## 📚 Examples
 
@@ -282,14 +281,12 @@ node dist/example/<name>.js
 You can also run Python examples directly in Google Colab.  
 See `python/README.md` for details.
 
----
 
 ## 📖 Documentation
 
 - [Python SDK docs](./python/README.md)  
 - [TypeScript SDK docs](./typescript/README.md)  
 
----
 
 ## 💬 Support
 
@@ -297,7 +294,6 @@ See `python/README.md` for details.
 
 Bug reports and feature requests are welcome through GitHub issues.
 
----
 
 ## 🤝 Contributing
 
@@ -307,7 +303,6 @@ Contributions are welcome.
 - Submit pull requests for bug fixes or new examples  
 - Follow the style and lint rules for each SDK  
 
----
 
 ## 📄 License
 
