@@ -1,5 +1,5 @@
 /**
- * Thread management for BaseAI SDK
+ * Thread management for A2ABase SDK
  */
 
 import { ThreadsClient, Message, AgentStartRequest, AgentStartResponse } from './api/threads';
@@ -28,12 +28,20 @@ export class Thread {
     return response.messages;
   }
 
-  async getAgentRuns(): Promise<AgentRun[]> {
-    const threadData = await this.client.getThread(this.threadId);
-    if (!threadData.recent_agent_runs || threadData.recent_agent_runs.length === 0) {
-      return [];
+  async getAgentRuns(): Promise<AgentRun[] | null> {
+    try {
+      const threadData = await this.client.getThread(this.threadId);
+      const recentRuns = threadData.recent_agent_runs;
+      if (!recentRuns || recentRuns.length === 0) {
+        return null;
+      }
+      return recentRuns
+        .map((run: { id?: string; agent_run_id?: string }) => run.id || run.agent_run_id)
+        .filter((id): id is string => !!id)
+        .map((id: string) => new AgentRun(this, id));
+    } catch {
+      return null;
     }
-    return threadData.recent_agent_runs.map((run: { id: string }) => new AgentRun(this, run.id));
   }
 }
 
@@ -75,7 +83,7 @@ export class AgentRun {
   }
 }
 
-export class BaseAIThread {
+export class A2ABaseThread {
   private client: ThreadsClient;
 
   constructor(client: ThreadsClient) {

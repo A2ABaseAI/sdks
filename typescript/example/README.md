@@ -1,6 +1,6 @@
-# BaseAI TypeScript/JavaScript Examples
+# A2ABase TypeScript/JavaScript Examples
 
-This directory contains comprehensive examples demonstrating how to use the BaseAI TypeScript/JavaScript SDK.
+This directory contains comprehensive examples demonstrating how to use the A2ABase TypeScript/JavaScript SDK.
 
 ## Prerequisites
 
@@ -74,7 +74,7 @@ Google Colab primarily supports Python. For TypeScript/JavaScript, use:
 All examples follow this pattern:
 
 1. **Get API key from environment variable** - Check for `BASEAI_API_KEY` and fail fast with helpful error
-2. **Create a BaseAI client** - Initialize with API key and URL
+2. **Create an A2ABase client** - Initialize with API key and URL
 3. **Create or find an agent** - Use `findByName` to reuse existing agents or create new ones
 4. **Run the agent with a prompt** - Execute the agent with a specific task
 5. **Stream and print the response** - Process the streaming response in real-time
@@ -83,8 +83,8 @@ All examples follow this pattern:
 ## Example Code Pattern
 
 ```typescript
-import { BaseAI } from '../src/baseai';
-import { BaseAITool } from '../src/tools';
+import { A2ABase } from '../src/a2abase';
+import { A2ABaseTool } from '../src/tools';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -92,7 +92,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new BaseAI({
+  const client = new A2ABase({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -106,7 +106,7 @@ async function main() {
     agent = await client.Agent.create({
       name: desiredName,
       systemPrompt: 'You are a helpful assistant.',
-      mcpTools: [BaseAITool.WEB_SEARCH_TOOL],
+      a2abaseTools: [A2ABaseTool.WEB_SEARCH_TOOL],
     });
     created = true;
   }
@@ -128,7 +128,7 @@ main().catch(console.error);
 
 ## Available Tools
 
-The SDK provides access to various tools through the `BaseAITool` enum:
+The SDK provides access to various tools through the `A2ABaseTool` enum:
 
 - **File Management**: `FILES_TOOL`, `UPLOAD_FILE_TOOL`
 - **Development**: `SHELL_TOOL`, `WEB_DEV_TOOL`, `DEPLOY_TOOL`, `EXPOSE_TOOL`

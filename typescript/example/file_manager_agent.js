@@ -23,7 +23,7 @@ async function main() {
         agent = await client.Agent.create({
             name: desiredName,
             systemPrompt: 'You are a file management assistant. You can read, write, edit, and organize files. Help users manage their file system, create documentation, organize files into directories, and perform file operations safely.',
-            mcpTools: [tools_1.BaseAITool.FILES_TOOL],
+            a2abaseTools: [tools_1.BaseAITool.FILES_TOOL],
         });
         created = true;
     }

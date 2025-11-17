@@ -27,7 +27,7 @@ export interface Thread {
   is_public: boolean;
   created_at: string;
   updated_at: string;
-  recent_agent_runs?: Array<{ id: string }>;
+  recent_agent_runs?: Array<{ id?: string; agent_run_id?: string }>;
 }
 
 export interface Message {

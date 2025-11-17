@@ -2,8 +2,8 @@
  * Example: Customer Support Triage Agent
  * Demonstrates web search tools for monitoring and triaging support tickets.
  */
-import { BaseAI } from '../src/baseai';
-import { BaseAITool } from '../src/tools';
+import { A2ABase } from '../src/a2abase';
+import { A2ABaseTool } from '../src/tools';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -11,7 +11,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new BaseAI({
+  const client = new A2ABase({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -25,7 +25,7 @@ async function main() {
     agent = await client.Agent.create({
       name: desiredName,
       systemPrompt: 'Monitor support inbox, label priority, suggest responses, and escalate critical issues.',
-      mcpTools: [BaseAITool.WEB_SEARCH_TOOL],
+      a2abaseTools: [A2ABaseTool.WEB_SEARCH_TOOL],
     });
     created = true;
   }

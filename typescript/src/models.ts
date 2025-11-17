@@ -1,5 +1,5 @@
 /**
- * Data models for the BaseAI SDK
+ * Data models for the A2ABase SDK
  */
 
 export enum Role {

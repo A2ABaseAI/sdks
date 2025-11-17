@@ -1,12 +1,14 @@
 {
-  "name": "@belarabyai/baseai",
+  "name": "@belarabyai/a2abase",
   "version": "1.0.2",
-  "description": "BaseAI SDK for TypeScript/JavaScript",
+  "description": "A2ABase SDK for TypeScript/JavaScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "jest tests/e2e.test.ts",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -37,15 +39,14 @@
     "undici": "^6.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
-    "jest": "^29.0.0",
-    "@types/jest": "^29.0.0",
-    "ts-jest": "^29.0.0"
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.0.0"
   },
   "files": [
     "dist",
     "README.md"
   ]
 }
-

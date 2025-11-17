@@ -29,10 +29,10 @@ Bring your own tool subscriptions or use ours. Migrate between providers without
 ## 🔍 What is A2ABaseAI SDK?
 
 ```python
-from baseai.tools import BaseAITool
+from a2abase.tools import A2ABaseTools
 
 # Hundreds of ready to use integration and tools for agents
-tool = BaseAITool.*
+tool = A2ABaseTools.*
 ```
 
 - One import gives your agents access to a large tool catalog  
@@ -74,7 +74,7 @@ You are ready to build.
 - Long term knowledge and document storage  
 - Deep integration library through MCP  
 
-Both SDKs expose the same high level concepts: `A2ABaseAI`, `Agent`, `Thread`, `Run`, and the `A2ABaseAITool`.
+Both SDKs expose the same high level concepts: `A2ABaseClient` (Python) / `A2ABase` (TypeScript), `Agent`, `Thread`, `Run`, and the `A2ABaseTools` (Python) / `A2ABaseTool` (TypeScript).
 
 
 ## 📊 Tool categories at a glance
@@ -133,21 +133,21 @@ No More:
 ```python
 import asyncio
 import os
-from baseai import A2ABaseAI
-from baseai.tools import A2ABaseAITool
+from a2abase import A2ABaseClient
+from a2abase.tools import A2ABaseTools
 
 async def main():
     api_key = os.getenv("BASEAI_API_KEY")
     if not api_key:
         raise ValueError("Please set BASEAI_API_KEY environment variable")
     
-    client = A2ABaseAI(api_key=api_key, api_url="https://a2abase.ai/api")
+    client = A2ABaseClient(api_key=api_key, api_url="https://a2abase.ai/api")
 
     thread = await client.Thread.create()
     agent = await client.Agent.create(
         name="My Assistant",
         system_prompt="You are a helpful AI assistant.",
-        mcp_tools=[A2ABaseAITool.WEB_SEARCH_TOOL],
+        a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
     )
 
     run = await agent.run("Hello, how are you?", thread)
@@ -161,7 +161,8 @@ asyncio.run(main())
 ### TypeScript / JavaScript
 
 ```typescript
-import { A2ABaseAI, A2ABaseAITool } from '@belarabyai/baseai';
+import { A2ABase } from '@belarabyai/baseai';
+import { A2ABaseTool } from '@belarabyai/baseai';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -169,7 +170,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new A2ABaseAI({
+  const client = new A2ABase({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -178,7 +179,7 @@ async function main() {
   const agent = await client.Agent.create({
     name: 'My Assistant',
     systemPrompt: 'You are a helpful AI assistant.',
-    mcpTools: [A2ABaseAITool.WEB_SEARCH_TOOL],
+    a2abaseTools: [A2ABaseTool.WEB_SEARCH_TOOL],
   });
 
   const run = await agent.run('Hello, how are you?', thread);
@@ -195,7 +196,7 @@ main();
 
 ## 🛠 Tooling overview
 
-Both SDKs expose a unified `A2ABaseAITool` enum that covers the full tool catalog.
+Both SDKs expose a unified tool enum (`A2ABaseTools` in Python, `A2ABaseTool` in TypeScript) that covers the full tool catalog.
 
 Instead of configuring dozens of separate tools, you enable categories and get a coherent surface:
 

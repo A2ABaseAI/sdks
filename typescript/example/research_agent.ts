@@ -2,8 +2,8 @@
  * Example: Research Agent
  * Demonstrates web search and browser tools for research tasks.
  */
-import { BaseAI } from '../src/baseai';
-import { BaseAITool } from '../src/tools';
+import { A2ABase } from '../src/a2abase';
+import { A2ABaseTool } from '../src/tools';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -11,7 +11,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new BaseAI({
+  const client = new A2ABase({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -25,7 +25,7 @@ async function main() {
     agent = await client.Agent.create({
       name: desiredName,
       systemPrompt: 'You are a research assistant. You can search the web, browse websites, analyze information from multiple sources, and compile comprehensive reports.',
-      mcpTools: [BaseAITool.WEB_SEARCH_TOOL, BaseAITool.BROWSER_TOOL],
+      a2abaseTools: [A2ABaseTool.WEB_SEARCH_TOOL, A2ABaseTool.BROWSER_TOOL],
     });
     created = true;
   }
