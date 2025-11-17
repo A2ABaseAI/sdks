@@ -1,35 +1,16 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "a2abase-sdk"
-version = "1.0.3"
-description = "Official Python SDK for building powerful AI agents with access to 50+ built-in tools, 300+ integrations, and all major LLMs—all through a single, unified platform."
+name = "A2ABaseClient"
+version = "0.1.0"
+description = "A2ABase SDK"
 readme = "README.md"
 requires-python = ">=3.11"
-authors = [
-    {name = "BelArabyAI", email = "mk@belaraby.com"}
-]
-license = {text = "MIT"}
-keywords = ["baseai", "ai", "sdk", "python", "agent", "llm"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
-dependencies = ["httpx>=0.28.1", "fastmcp>=2.10.6"]
-
-[project.urls]
-Homepage = "https://github.com/A2ABaseAI/sdks"
-Documentation = "https://github.com/A2ABaseAI/sdks"
-Repository = "https://github.com/A2ABaseAI/sdks.git"
-Issues = "https://github.com/A2ABaseAI/sdks/issues"
-Support = "https://discord.gg/qAncfHmYUm"
+dependencies = ["asyncio>=3.4.3", "httpx>=0.28.1", "fastmcp>=2.10.6"]
 
 [dependency-groups]
-dev = ["dotenv>=0.9.9", "pytest>=8.0.0", "pytest-asyncio>=0.23.0", "respx>=0.21.1"]
+dev = [
+    "dotenv>=0.9.9",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=7.0.0",
+    "respx>=0.21.1",
+]

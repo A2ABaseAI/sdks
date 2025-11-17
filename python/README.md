@@ -93,21 +93,21 @@ pip install git+https://github.com/A2ABaseAI/sdks.git#subdirectory=python
 ```python
 import asyncio
 import os
-from baseai import BaseAI
-from baseai.tools import BaseAITool
+from a2abase import A2ABaseClient
+from a2abase.tools import A2ABaseTools
 
 async def main():
     api_key = os.getenv("BASEAI_API_KEY")
     if not api_key:
         raise ValueError("Please set BASEAI_API_KEY environment variable")
     
-    client = BaseAI(api_key=api_key, api_url="https://a2abase.ai/api")
+    client = A2ABaseClient(api_key=api_key, api_url="https://a2abase.ai/api")
     
     thread = await client.Thread.create()
     agent = await client.Agent.create(
         name="My Assistant",
         system_prompt="You are a helpful AI assistant.",
-        mcp_tools=[BaseAITool.WEB_SEARCH_TOOL],
+        a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
     )
     
     run = await agent.run("Hello, how are you?", thread)
@@ -132,30 +132,19 @@ That's it! You're ready to build.
 
 ## 🛠️ Available Tools
 
-The SDK provides access to the same comprehensive set of tools through the `BaseAITool` enum:
+The SDK provides access to tools through the `A2ABaseTools` enum and `MCPTools` class:
 
 ### File Management
-- `FILES_TOOL` - Read, write, and edit files in the sandbox
-- `UPLOAD_FILE_TOOL` - Upload files to the sandbox workspace
+- `SB_FILES_TOOL` - Read, write, and edit files in the sandbox
 
 ### Development & Automation
-- `SHELL_TOOL` - Execute shell commands in isolated sandboxes
-- `WEB_DEV_TOOL` - Create and manage modern web applications (Next.js, React, Vite, shadcn/ui)
-- `DEPLOY_TOOL` - Deploy web applications to production
-- `EXPOSE_TOOL` - Expose local services to the internet
-- Project templates - Scaffold projects from predefined templates
+- `SB_SHELL_TOOL` - Execute shell commands in isolated sandboxes
+- `SB_DEPLOY_TOOL` - Deploy web applications to production
+- `SB_EXPOSE_TOOL` - Expose local services to the internet
 
 ### Image & Vision
-- `VISION_TOOL` - Analyze and understand images with AI
-- `IMAGE_SEARCH_TOOL` - Search for images on the web
-- `IMAGE_EDIT_TOOL` - Edit and manipulate images
-- `DESIGN_TOOL` - Design and create visual content
-
-### Content Creation
-- `DOCS_TOOL` - Create and manage documents (HTML, Markdown formats)
-- `SHEETS_TOOL` - Create and manage spreadsheets with data analysis, visualization, and formatting
-- `PRESENTATION_TOOL` - Create and manage presentations
-- `PRESENTATION_OUTLINE_TOOL` - Create presentation outlines
+- `SB_VISION_TOOL` - Analyze and understand images with AI
+- `SB_IMAGE_EDIT_TOOL` - Edit and manipulate images
 
 ### Search & Browser
 - `WEB_SEARCH_TOOL` - Search the web for information
@@ -168,7 +157,6 @@ The SDK provides access to the same comprehensive set of tools through the `Base
 - Web search - General web search capabilities
 
 ### Knowledge & Data
-- `KB_TOOL` - Access and manage knowledge base (local and global sync)
 - `DATA_PROVIDERS_TOOL` - Access structured data from providers:
   - LinkedIn - Professional network data
   - Yahoo Finance - Financial market data
@@ -242,49 +230,87 @@ You can also connect any custom MCP-compatible server by providing the MCP endpo
 ### Creating an Agent
 
 ```python
-from baseai import BaseAI
-from baseai.tools import BaseAITool
+import asyncio
+from a2abase import A2ABaseClient
+from a2abase.tools import A2ABaseTools, MCPTools
 
-client = BaseAI(api_key="your-api-key", api_url="https://a2abase.ai/api")
+async def main():
+    client = A2ABaseClient(api_key="your-api-key", api_url="https://a2abase.ai/api")
+    
+    # Create an agent with A2ABase tools
+    agent = await client.Agent.create(
+        name="My Agent",
+        system_prompt="You are a helpful assistant.",
+        a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL, A2ABaseTools.SB_FILES_TOOL],
+    )
+    
+    # Or create an agent with MCP tools
+    mcp_tool = MCPTools(endpoint="https://your-mcp-server.com", name="My MCP Server")
+    await mcp_tool.initialize()  # Initialize to discover available tools
+    
+    agent_with_mcp = await client.Agent.create(
+        name="My MCP Agent",
+        system_prompt="You are a helpful assistant.",
+        a2abase_tools=[mcp_tool],
+    )
 
-# Create an agent with tools
-agent = await client.Agent.create(
-    name="My Agent",
-    system_prompt="You are a helpful assistant.",
-    mcp_tools=[BaseAITool.WEB_SEARCH_TOOL, BaseAITool.FILES_TOOL],
-)
+asyncio.run(main())
 ```
 
 ### Running an Agent
 
 ```python
-# Create a thread
-thread = await client.Thread.create()
+import asyncio
+from a2abase import A2ABaseClient
+from a2abase.tools import A2ABaseTools
 
-# Run the agent
-run = await agent.run("Your task here", thread)
+async def main():
+    client = A2ABaseClient(api_key="your-api-key", api_url="https://a2abase.ai/api")
+    
+    # Create a thread
+    thread = await client.Thread.create()
+    
+    # Get or create an agent (see "Creating an Agent" section above)
+    agent = await client.Agent.create(
+        name="My Agent",
+        system_prompt="You are a helpful assistant.",
+        a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
+    )
+    
+    # Run the agent
+    run = await agent.run("Your task here", thread)
+    
+    # Stream the response
+    stream = await run.get_stream()
+    async for chunk in stream:
+        print(chunk, end="")
 
-# Stream the response
-stream = await run.get_stream()
-async for chunk in stream:
-    print(chunk, end="")
+asyncio.run(main())
 ```
 
 ### Finding an Existing Agent
 
 ```python
-# Find agent by name
-agent = await client.Agent.find_by_name("My Agent")
-if agent:
-    # Use the existing agent
-    pass
+import asyncio
+from a2abase import A2ABaseClient
+
+async def main():
+    client = A2ABaseClient(api_key="your-api-key", api_url="https://a2abase.ai/api")
+    
+    # Find agent by name
+    agent = await client.Agent.find_by_name("My Agent")
+    if agent:
+        # Use the existing agent
+        pass
+
+asyncio.run(main())
 ```
 
 ## 📚 Examples
 
 Comprehensive examples are available in the [`example/`](./example/) directory, demonstrating:
 
-- **Tool-Specific Examples**: Each tool from `BaseAITool` enum with practical use cases
+- **Tool-Specific Examples**: Each tool from `A2ABaseTools` enum with practical use cases
 - **Common Use Cases**: Real-world scenarios like research, content creation, automation, and more
 
 See the [examples README](./example/README.md) for a complete list of available examples.
@@ -326,21 +352,21 @@ To run examples in Google Colab:
 !pip install a2abase-sdk
 
 import os
-from baseai import BaseAI
-from baseai.tools import BaseAITool
+from a2abase import A2ABaseClient
+from a2abase.tools import A2ABaseTools
 
 # Set your API key (use Colab's secrets or environment variables)
 os.environ['BASEAI_API_KEY'] = 'pk_xxx:sk_xxx'
 
 # Create client
-client = BaseAI(api_key=os.getenv("BASEAI_API_KEY"), api_url="https://a2abase.ai/api")
+client = A2ABaseClient(api_key=os.getenv("BASEAI_API_KEY"), api_url="https://a2abase.ai/api")
 
 # Create thread and agent
 thread = await client.Thread.create()
 agent = await client.Agent.create(
     name="My Assistant",
     system_prompt="You are a helpful AI assistant.",
-    mcp_tools=[BaseAITool.WEB_SEARCH_TOOL],
+    a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
 )
 
 # Run the agent
@@ -353,6 +379,23 @@ async for chunk in stream:
 ```
 
 **Note:** In Google Colab, you can use `await` directly in cells without `asyncio.run()`.
+
+## 🧪 Testing
+
+The SDK includes comprehensive test coverage:
+
+- **166 tests** covering all functionality
+- **99.83% code coverage** across all modules
+- Tests for agents, threads, tools, API clients, and models
+- Full async/await support testing
+
+Run tests locally:
+
+```bash
+cd python
+uv sync --group dev
+uv run pytest tests/ -v
+```
 
 ## 📖 Documentation
 

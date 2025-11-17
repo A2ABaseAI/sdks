@@ -1,0 +1,53 @@
+"""
+Example: Report Generation Agent - Common Use Case
+Demonstrates comprehensive report generation.
+"""
+import asyncio
+import os
+from a2abase import A2ABaseClient
+from a2abase.tools import A2ABaseTools
+
+
+async def main():
+    api_key = os.getenv("BASEAI_API_KEY", "YOUR_API_KEY")
+    if api_key == "YOUR_API_KEY":
+        raise ValueError("Please set BASEAI_API_KEY environment variable or update the api_key in the script")
+    client = A2ABaseClient(api_key=api_key, api_url="https://a2abase.ai/api")
+
+    thread = await client.Thread.create()
+    desired_name = "Report Generation Agent"
+    agent = await client.Agent.find_by_name(desired_name)
+    created = False
+    if agent is None:
+        agent = await client.Agent.create(
+            name=desired_name,
+            system_prompt=(
+                "You are a report generation assistant. You can read data files, create spreadsheets, "
+                "generate documents, create presentations, and search for information. Help users "
+                "create comprehensive, professional reports with data, analysis, and visualizations."
+            ),
+            a2abase_tools=[
+                A2ABaseTools.SB_FILES_TOOL,
+                A2ABaseTools.WEB_SEARCH_TOOL,
+            ],
+        )
+        created = True
+
+    # Example: Report generation
+    run = await agent.run(
+        "Generate a quarterly business report. Include: data analysis from CSV files, "
+        "a spreadsheet with key metrics and charts, a comprehensive document with findings, "
+        "and a presentation deck summarizing the results for stakeholders.",
+        thread
+    )
+    stream = await run.get_stream()
+    async for line in stream:
+        print(line)
+
+    if created:
+        await agent.delete()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
