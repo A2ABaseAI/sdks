@@ -1,94 +1,108 @@
-# BaseAI Python SDK
+# A2ABaseAI Python SDK
 
-> **One SDK. Unlimited Tools. Build AI Agents in Minutes.**
+<p align="center">
+  <img src="https://a2abase.ai/belarabyai-symbol.svg" alt="A2ABaseAI" width="110" />
+</p>
 
-Official Python SDK for building powerful AI agents with access to 50+ built-in tools, 300+ integrations, and all major LLMs—all through a single, unified platform.
+<p align="center">
+  <b>One import: tools, auth, sandboxes and deployment included.</b>
+</p>
+
+<p align="center">
+  <a href="https://pypi.org/project/a2abase/"><img src="https://img.shields.io/pypi/v/a2abase?label=Python%20SDK" alt="PyPI"></a>
+  <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
+  <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
+  <img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT License">
+</p>
 
 ---
 
-## 🎥 Watch the Demo
+> A2ABaseAI Python SDK for building and shipping production grade AI agents.  
+> One line gives you access to 50+ tools, 300+ integrations, and all major LLMs through a single unified platform.
 
-<a href="https://youtu.be/bxJvMlVs2Mg">
-  <img src="https://img.youtube.com/vi/bxJvMlVs2Mg/maxresdefault.jpg" alt="BaseAI SDK Demo" style="width:100%;">
-</a>
+A2ABaseAI SDK handles authentication, tool execution, sandboxes, and integrations so you can stay focused on agent logic.  
+Bring your own tool subscriptions or use ours. Migrate between providers without touching your agent code.
 
-**👉 [Watch on YouTube](https://youtu.be/bxJvMlVs2Mg)**
+## 🔍 What is A2ABaseAI SDK?
 
----
+```python
+from a2abase.tools import A2ABaseTools
 
-## 🚀 Why BaseAI?
-
-**Stop juggling multiple tools, APIs, and accounts.** BaseAI consolidates everything you need into one simple SDK.
-
-### The Problem You're Solving
-
-Building AI agents today means:
-- ❌ Managing 10+ different API keys and accounts
-- ❌ Integrating multiple libraries and SDKs
-- ❌ Searching for the right tools and benchmarking
-- ❌ Building custom integrations from scratch
-- ❌ Dealing with authentication and security concerns
-- ❌ Paying multiple subscription fees
-
-### The BaseAI Solution
-
-**One SDK. One API key. Everything you need.**
-
-- ✅ **50+ built-in tools** - Everything from web search to image editing to web development
-- ✅ **300+ MCP integrations** - Access 200+ Composio integrations (Gmail, Slack, GitHub, etc.) plus custom MCP servers
-- ✅ **All LLMs in one place** - Unified access to multiple language models
-- ✅ **Isolated sandboxes** - Secure execution environments built-in
-- ✅ **Pay-as-you-go pricing** - 80% cheaper than alternatives
-- ✅ **Type-safe SDK** - Full IDE support for Python
-
-**Install one SDK. Access everything. Build a working prototype in minutes.**
-
-## 💰 Pricing
-
-### Pay-As-You-Go Model
-
-BaseAI uses transparent, pay-as-you-go pricing with **no hidden fees**.
-
-**80% Cheaper Than Alternatives**
-
-Unlike traditional platforms that require:
-- Multiple subscription fees for different services
-- Per-user licensing costs
-- Minimum monthly commitments
-- Platform lock-in fees
-
-BaseAI charges you only for what you use, when you use it. No minimums. Just simple, transparent pricing that scales with your needs.
-
-### What You Get
-
-- **Access to all tools** - No per-tool pricing
-- **All LLMs** - Unified access without separate accounts
-- **300+ integrations** - No per-integration fees
-- **Isolated sandboxes** - Included at no extra cost
-- **Full SDK support** - Python SDK included
-
-**Get started today**: [Get your API key](https://a2abase.ai/settings/api-keys)
-
-## Installation
-
-```bash
-pip install a2abase-sdk
+# Hundreds of ready to use integration and tools for agents
+tool = A2ABaseTools.*
 ```
 
-📦 **Published on PyPI**: [https://pypi.org/project/a2abase-sdk/](https://pypi.org/project/a2abase-sdk/)
+- One import gives your agents access to a large tool catalog  
+- One API key unlocks better rates with the providers you already use  
+- Ship faster with batteries included workflows, sandboxes, and deployments  
 
-Or install directly from GitHub:
+## 🔑 Get your API key
+
+1. Sign up at **[A2ABaseAI Dashboard](https://a2abase.ai/settings/api-keys)**
+2. Create an API key
+3. Set it locally
 
 ```bash
-pip install git+https://github.com/A2ABaseAI/sdks.git#subdirectory=python
+export BASEAI_API_KEY="pk_xxx:sk_xxx"
 ```
 
-## Requirements
+**Install**: `pip install a2abase`
 
-- Python 3.11+
-- See [requirements.txt](./requirements.txt) for dependencies
+You are ready to build.
 
-## 🚀 Quick Start
+### Core capabilities
+
+- Agent and workflow management  
+- Tool orchestration and execution  
+- Secure sandboxes for code, shells, and browsers  
+- Long term knowledge and document storage  
+- Deep integration library through MCP  
+
+The SDK exposes high level concepts: `A2ABaseClient`, `Agent`, `Thread`, `Run`, and `A2ABaseTools`.
+
+## 📊 Tool categories at a glance
+
+| Category               | Examples                                           | Primary use cases                          |
+| ---------------------- | -------------------------------------------------- | -------------------------------------------|
+| File and workspace     | Files, Upload, Knowledge Base                      | Code, docs, configs, retrieval             |
+| Development            | Shell, Web Dev, Deploy, Expose                     | Build and ship apps from inside agents     |
+| Web and browser        | Browser, Advanced Browser, Web Search, Image Search| Scraping, research, end to end automation  |
+| Content creation       | Docs, Sheets, Presentations, Design                | Reports, decks, dashboards, creative work  |
+| AI and vision          | Vision, Image Edit                                 | Screenshot analysis, visual agents         |
+| Data and integrations  | Data Providers, MCP integrations                   | Connect SaaS, CRMs, clouds, and databases  |
+| Search                 | People Search, Company Search                      | Prospecting and enrichment                 |
+| System automation      | Computer Automation                                | GUI and desktop control                    |
+
+For the complete tool reference see the SDK specific docs.
+
+## ✅ The A2ABaseAI solution
+
+**One SDK. One API key. Everything wired together.**
+
+- ✅ 50+ built in tools  
+  Web search, browser control, files, web dev, docs, sheets, presentations, vision, images, and more  
+- ✅ 300+ MCP integrations  
+  Connect Gmail, Slack, GitHub, Notion, CRMs, databases, cloud, and hundreds of services  
+- ✅ All major LLMs behind one interface  
+  Swap models and providers without touching your agent code  
+- ✅ Secure, isolated sandboxes  
+  Run code, shells, browsers, and tools in contained environments  
+- ✅ Pay as you go  
+  Only pay for what runs. No platform lock in, no per seat fees  
+- ✅ Type safe SDK  
+  Full IntelliSense and autocomplete in Python  
+
+No More:
+- ❌ Juggling 10+ API keys and accounts  
+- ❌ Gluing together multiple SDKs and libraries  
+- ❌ Hunting for the right tools and benchmarking them  
+- ❌ Writing fragile one off integrations  
+- ❌ Owning all auth and security yourself  
+- ❌ Paying for a pile of separate subscriptions  
+
+**Install one SDK, call one client, ship a working agent in minutes.**
+
+## 🚀 Quick start
 
 ```python
 import asyncio
@@ -102,14 +116,14 @@ async def main():
         raise ValueError("Please set BASEAI_API_KEY environment variable")
     
     client = A2ABaseClient(api_key=api_key, api_url="https://a2abase.ai/api")
-    
+
     thread = await client.Thread.create()
     agent = await client.Agent.create(
         name="My Assistant",
         system_prompt="You are a helpful AI assistant.",
         a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
     )
-    
+
     run = await agent.run("Hello, how are you?", thread)
     stream = await run.get_stream()
     async for chunk in stream:
@@ -118,301 +132,105 @@ async def main():
 asyncio.run(main())
 ```
 
-## 🔑 Getting Your API Key
+## 🛠 Tooling overview
 
-1. Sign up at [BaseAI](https://a2abase.ai/settings/api-keys)
-2. Get your API key from the dashboard
-3. Set it as an environment variable:
+The SDK exposes a unified tool enum (`A2ABaseTools`) that covers the full tool catalog.
 
-```bash
-export BASEAI_API_KEY="pk_xxx:sk_xxx"
-```
+Instead of configuring dozens of separate tools, you enable categories and get a coherent surface:
 
-That's it! You're ready to build.
+### File and workspace
 
-## 🛠️ Available Tools
+- File operations: create, read, edit, rewrite, delete  
+- Upload files into the sandbox workspace  
+- Knowledge base with semantic search, sync, and long term memory  
 
-The SDK provides access to tools through the `A2ABaseTools` enum and `MCPTools` class:
+Typical uses: codegen, configuration files, document workflows, retrieval for agents.
 
-### File Management
-- `SB_FILES_TOOL` - Read, write, and edit files in the sandbox
+### Development and deployment
 
-### Development & Automation
-- `SB_SHELL_TOOL` - Execute shell commands in isolated sandboxes
-- `SB_DEPLOY_TOOL` - Deploy web applications to production
-- `SB_EXPOSE_TOOL` - Expose local services to the internet
+- Shell tools in isolated environments  
+- Web dev tools for React, Next.js, Vite, and shadcn based apps  
+- Deployment helpers and port exposure for preview links  
 
-### Image & Vision
-- `SB_VISION_TOOL` - Analyze and understand images with AI
-- `SB_IMAGE_EDIT_TOOL` - Edit and manipulate images
+Typical uses: build agents that scaffold apps, run migrations, deploy small services.
 
-### Search & Browser
-- `WEB_SEARCH_TOOL` - Search the web for information
-- `BROWSER_TOOL` - Browse websites and interact with web pages (navigate, click, fill forms, scroll)
+### Web and browser automation
 
-### Research & Intelligence
-- People search - Search for people and enrich profiles
-- Company search - Search for companies and business information
-- Paper search - Search academic papers and research documents
-- Web search - General web search capabilities
+- Standard web search and scraping  
+- Browser automation with full DOM control  
+- Multi tab flows, form filling, scrolling, screenshots  
 
-### Knowledge & Data
-- `DATA_PROVIDERS_TOOL` - Access structured data from providers:
-  - LinkedIn - Professional network data
-  - Yahoo Finance - Financial market data
-  - Amazon - Product and marketplace data
-  - Zillow - Real estate data
-  - Twitter - Social media data
-  - ActiveJobs - Job listings data
+Typical uses: research agents, competitor intelligence, test runners, web workflows.
 
-### Agent Management
-- Agent creation - Create and configure AI agents
-- Agent configuration - Manage agent settings and versions
-- Workflow management - Create and manage agent workflows
-- Trigger management - Set up automated triggers
-- Credential profiles - Manage API credentials
+### Content and productivity
 
-### Task Management
-- Task list - Create, update, and manage tasks organized by sections
-- Task tracking - Track completion status and progress
-- Batch operations - Manage multiple tasks at once
+- Docs, sheets, and presentations  
+- Design and image editing tools  
+- Presentation outlines and structured content planning  
 
-### Communication
-- Message tool - Ask questions, inform users, and mark completion
-- Message expansion - Expand truncated messages from previous conversations
+Typical uses: report writers, slide generators, internal tooling, marketing assistants.
 
-### Automation
-- Computer use - Control sandbox browser and GUI (mouse, keyboard, screenshots)
-- Document parser - Parse and extract data from documents
+### AI and vision
 
-### Templates & Scaffolding
-- Project templates - Generate projects from predefined templates
-- Template search - Search and discover available templates
+- Vision tools for screenshots and document images  
+- Image generation and editing  
 
-## 🔌 MCP Integrations
+Typical uses: UI review, PDF parsing, creative image agents.
 
-BaseAI supports **300+ MCP (Model Context Protocol) integrations** through Composio and custom MCP servers, allowing you to connect any MCP-compatible server. MCPs can be connected via:
+### Data and integrations
 
-- HTTP/HTTPS endpoints
-- SSE (Server-Sent Events)
-- stdio (standard input/output)
+Through data provider tools and MCP you can connect to:
 
-### Composio MCP Integrations (200+)
+- Productivity: Gmail, Calendar, Slack, Notion, Linear, Asana, Jira, Trello  
+- Dev and cloud: GitHub, GitLab, Bitbucket, Docker Hub, AWS, GCP, Azure  
+- CRM and sales: Salesforce, HubSpot, Pipedrive, Zoho, Intercom  
+- Data and storage: Google Sheets, Drive, Dropbox, MongoDB, Postgres, MySQL  
+- Marketing and social: X, LinkedIn, Facebook, Instagram, Mailchimp, SendGrid  
+- Commerce and payments: Shopify, Stripe, PayPal, WooCommerce, Square  
 
-BaseAI integrates with [Composio.dev](https://composio.dev) to provide access to **200+ pre-configured MCP servers** including:
+Plug in via Composio MCP servers or your own MCP endpoints.  
+A2ABaseAI manages auth, credentials, and routing for you.
 
-**Productivity & Communication**
-- Gmail, Google Calendar, Slack, Microsoft Teams, Notion, Linear, Asana, Jira, Trello, Airtable
+### Search and automation
 
-**Code & Development**
-- GitHub, GitLab, Bitbucket, Docker Hub, AWS, Google Cloud Platform, Azure
-
-**CRM & Sales**
-- Salesforce, HubSpot, Pipedrive, Zoho CRM, Intercom
-
-**Data & Analytics**
-- Google Sheets, Google Drive, Dropbox, Airtable, MongoDB, PostgreSQL, MySQL
-
-**Marketing & Social**
-- Twitter/X, LinkedIn, Facebook, Instagram, Mailchimp, SendGrid
-
-**E-commerce & Payments**
-- Shopify, Stripe, PayPal, WooCommerce, Square
-
-**And 150+ more integrations** including project management tools, databases, cloud services, APIs, and business applications.
-
-### Custom MCP Servers
-
-You can also connect any custom MCP-compatible server by providing the MCP endpoint URL. This enables integration with any tool, API, or service that follows the Model Context Protocol standard.
-
-## Usage
-
-### Creating an Agent
-
-```python
-import asyncio
-from a2abase import A2ABaseClient
-from a2abase.tools import A2ABaseTools, MCPTools
-
-async def main():
-    client = A2ABaseClient(api_key="your-api-key", api_url="https://a2abase.ai/api")
-    
-    # Create an agent with A2ABase tools
-    agent = await client.Agent.create(
-        name="My Agent",
-        system_prompt="You are a helpful assistant.",
-        a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL, A2ABaseTools.SB_FILES_TOOL],
-    )
-    
-    # Or create an agent with MCP tools
-    mcp_tool = MCPTools(endpoint="https://your-mcp-server.com", name="My MCP Server")
-    await mcp_tool.initialize()  # Initialize to discover available tools
-    
-    agent_with_mcp = await client.Agent.create(
-        name="My MCP Agent",
-        system_prompt="You are a helpful assistant.",
-        a2abase_tools=[mcp_tool],
-    )
-
-asyncio.run(main())
-```
-
-### Running an Agent
-
-```python
-import asyncio
-from a2abase import A2ABaseClient
-from a2abase.tools import A2ABaseTools
-
-async def main():
-    client = A2ABaseClient(api_key="your-api-key", api_url="https://a2abase.ai/api")
-    
-    # Create a thread
-    thread = await client.Thread.create()
-    
-    # Get or create an agent (see "Creating an Agent" section above)
-    agent = await client.Agent.create(
-        name="My Agent",
-        system_prompt="You are a helpful assistant.",
-        a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
-    )
-    
-    # Run the agent
-    run = await agent.run("Your task here", thread)
-    
-    # Stream the response
-    stream = await run.get_stream()
-    async for chunk in stream:
-        print(chunk, end="")
-
-asyncio.run(main())
-```
-
-### Finding an Existing Agent
-
-```python
-import asyncio
-from a2abase import A2ABaseClient
-
-async def main():
-    client = A2ABaseClient(api_key="your-api-key", api_url="https://a2abase.ai/api")
-    
-    # Find agent by name
-    agent = await client.Agent.find_by_name("My Agent")
-    if agent:
-        # Use the existing agent
-        pass
-
-asyncio.run(main())
-```
+- People search and company search for lead gen and enrichment  
+- Computer and desktop automation for full system level workflows  
 
 ## 📚 Examples
 
-Comprehensive examples are available in the [`example/`](./example/) directory, demonstrating:
+The SDK ships with real world examples in `./examples/`.
 
-- **Tool-Specific Examples**: Each tool from `A2ABaseTools` enum with practical use cases
-- **Common Use Cases**: Real-world scenarios like research, content creation, automation, and more
-
-See the [examples README](./example/README.md) for a complete list of available examples.
-
-### Running Examples
-
-**Python:**
-- Run scripts: `cd python && PYTHONPATH=. python3 example/<name>.py`
-- Run in Google Colab: See [Running Examples in Google Colab](#running-examples-in-google-colab) for instructions
-
-### Running All Examples
+Run examples:
 
 ```bash
+# Python
 cd python
-PYTHONPATH=. python3 example/run_all_examples.py
+PYTHONPATH=. python3 examples/<name>.py
 ```
 
-### Running Examples in Google Colab
-
-To run examples in Google Colab:
-
-**Option 1: Open from GitHub**
-1. Go to [Google Colab](https://colab.research.google.com/)
-2. Click "File" → "Open notebook"
-3. Select the "GitHub" tab
-4. Enter: `A2ABaseAI/sdks`
-5. Navigate to `python/example/quick_start.ipynb` or any `.py` file
-
-**Option 2: Manual Setup**
-1. Open [Google Colab](https://colab.research.google.com/)
-2. Create a new notebook
-3. Copy the code from any example file
-4. Adapt it for notebook use (remove `if __name__ == "__main__"` and use `await` directly)
-
-**Quick Start in Colab:**
-
-```python
-# Install the SDK
-!pip install a2abase-sdk
-
-import os
-from a2abase import A2ABaseClient
-from a2abase.tools import A2ABaseTools
-
-# Set your API key (use Colab's secrets or environment variables)
-os.environ['BASEAI_API_KEY'] = 'pk_xxx:sk_xxx'
-
-# Create client
-client = A2ABaseClient(api_key=os.getenv("BASEAI_API_KEY"), api_url="https://a2abase.ai/api")
-
-# Create thread and agent
-thread = await client.Thread.create()
-agent = await client.Agent.create(
-    name="My Assistant",
-    system_prompt="You are a helpful AI assistant.",
-    a2abase_tools=[A2ABaseTools.WEB_SEARCH_TOOL],
-)
-
-# Run the agent
-run = await agent.run("Hello, how are you?", thread)
-stream = await run.get_stream()
-
-# Stream and display results
-async for chunk in stream:
-    print(chunk, end="")
-```
-
-**Note:** In Google Colab, you can use `await` directly in cells without `asyncio.run()`.
-
-## 🧪 Testing
-
-The SDK includes comprehensive test coverage:
-
-- **166 tests** covering all functionality
-- **99.83% code coverage** across all modules
-- Tests for agents, threads, tools, API clients, and models
-- Full async/await support testing
-
-Run tests locally:
-
-```bash
-cd python
-uv sync --group dev
-uv run pytest tests/ -v
-```
+You can also run Python examples directly in Google Colab.  
+See the examples directory for details.
 
 ## 📖 Documentation
 
-- **PyPI Package**: [https://pypi.org/project/a2abase-sdk/](https://pypi.org/project/a2abase-sdk/)
-- **GitHub Repository**: [https://github.com/A2ABaseAI/sdks](https://github.com/A2ABaseAI/sdks)
-- **Full Documentation**: See the [repository](https://github.com/A2ABaseAI/sdks) for more examples and API reference.
+- [Python SDK docs](./README.md)  
+- [GitHub Repository](https://github.com/A2ABaseAI/sdks)  
 
 ## 💬 Support
 
-Need help? Join our Discord community for support and discussions:
+- Discord: https://discord.gg/qAncfHmYUm  
 
-- **Discord**: [https://discord.gg/qAncfHmYUm](https://discord.gg/qAncfHmYUm)
+Bug reports and feature requests are welcome through GitHub issues.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see our contributing guidelines.
+Contributions are welcome.
+
+- Open an issue to discuss larger changes  
+- Submit pull requests for bug fixes or new examples  
+- Follow the style and lint rules for the SDK  
 
 ## 📄 License
 
-MIT License - see LICENSE file for details.
+Released under the **MIT License**.  
+See `LICENSE` for full details.
