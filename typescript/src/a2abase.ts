@@ -1,27 +1,27 @@
 /**
- * Main BaseAI client
+ * Main A2ABase client
  */
 
 import { APIClient } from './api/client';
 import { AgentsClient, AgentsResponse } from './api/agents';
 import { ThreadsClient } from './api/threads';
-import { BaseAIAgent } from './agent';
-import { BaseAIThread } from './thread';
+import { A2ABaseAgent } from './agent';
+import { A2ABaseThread } from './thread';
 
-export interface BaseAIConfig {
+export interface A2ABaseConfig {
   apiKey: string;
   apiUrl?: string;
   timeout?: number;
 }
 
-export class BaseAI {
-  public readonly Agent: BaseAIAgent;
-  public readonly Thread: BaseAIThread;
+export class A2ABase {
+  public readonly Agent: A2ABaseAgent;
+  public readonly Thread: A2ABaseThread;
 
   private agentsClient: AgentsClient;
   private threadsClient: ThreadsClient;
 
-  constructor(config: BaseAIConfig) {
+  constructor(config: A2ABaseConfig) {
     const apiUrl = config.apiUrl || "https://a2abase.ai";
     const apiClient = new APIClient({
       baseUrl: apiUrl,
@@ -32,8 +32,8 @@ export class BaseAI {
     this.agentsClient = new AgentsClient(apiClient);
     this.threadsClient = new ThreadsClient(apiClient);
 
-    this.Agent = new BaseAIAgent(this.agentsClient);
-    this.Thread = new BaseAIThread(this.threadsClient);
+    this.Agent = new A2ABaseAgent(this.agentsClient);
+    this.Thread = new A2ABaseThread(this.threadsClient);
   }
 
   /**

@@ -3,7 +3,7 @@
  */
 
 import { APIClient } from './client';
-import { BaseAITool } from '../tools';
+import { A2ABaseTool } from '../tools';
 
 export interface MCPConfig {
   url: string;
@@ -16,7 +16,7 @@ export interface CustomMCP {
   enabled_tools: string[];
 }
 
-export interface BaseAIToolConfig {
+export interface A2ABaseToolConfig {
   enabled: boolean;
   description: string;
 }
@@ -26,7 +26,7 @@ export interface AgentCreateRequest {
   system_prompt: string;
   description?: string;
   custom_mcps?: CustomMCP[];
-  agentpress_tools?: Record<string, BaseAIToolConfig>;
+  agentpress_tools?: Record<string, A2ABaseToolConfig>;
   is_default?: boolean;
   avatar?: string;
   avatar_color?: string;
@@ -41,7 +41,7 @@ export interface AgentUpdateRequest {
   description?: string;
   system_prompt?: string;
   custom_mcps?: CustomMCP[];
-  agentpress_tools?: Record<string, BaseAIToolConfig>;
+  agentpress_tools?: Record<string, A2ABaseToolConfig>;
   is_default?: boolean;
   avatar?: string;
   avatar_color?: string;
@@ -58,7 +58,7 @@ export interface AgentVersionResponse {
   version_name: string;
   system_prompt: string;
   custom_mcps: CustomMCP[];
-  agentpress_tools: Record<string, BaseAIToolConfig>;
+  agentpress_tools: Record<string, A2ABaseToolConfig>;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -70,7 +70,7 @@ export interface AgentResponse {
   name: string;
   system_prompt: string;
   custom_mcps: CustomMCP[];
-  agentpress_tools: Record<string, BaseAIToolConfig>;
+  agentpress_tools: Record<string, A2ABaseToolConfig>;
   is_default: boolean;
   created_at: string;
   account_id?: string;

@@ -23,7 +23,7 @@ async function main() {
         agent = await client.Agent.create({
             name: desiredName,
             systemPrompt: 'You are a web development assistant. You can create modern web applications using Next.js and shadcn/ui. Help users build responsive, accessible, and performant web applications.',
-            mcpTools: [tools_1.BaseAITool.WEB_DEV_TOOL],
+            a2abaseTools: [tools_1.BaseAITool.WEB_DEV_TOOL],
         });
         created = true;
     }

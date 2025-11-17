@@ -2,8 +2,8 @@
  * Example: File Manager Agent
  * Demonstrates FILES_TOOL for reading, writing, and managing files.
  */
-import { BaseAI } from '../src/baseai';
-import { BaseAITool } from '../src/tools';
+import { A2ABase } from '../src/a2abase';
+import { A2ABaseTool } from '../src/tools';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -11,7 +11,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new BaseAI({
+  const client = new A2ABase({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -25,7 +25,7 @@ async function main() {
     agent = await client.Agent.create({
       name: desiredName,
       systemPrompt: 'You are a file management assistant. You can read, write, edit, and organize files. Help users manage their file system, create documentation, organize files into directories, and perform file operations safely.',
-      mcpTools: [BaseAITool.FILES_TOOL],
+      a2abaseTools: [A2ABaseTool.FILES_TOOL],
     });
     created = true;
   }

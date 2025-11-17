@@ -23,7 +23,7 @@ async function main() {
         agent = await client.Agent.create({
             name: desiredName,
             systemPrompt: 'You are a research assistant. You can search the web, browse websites, analyze information from multiple sources, and compile comprehensive reports.',
-            mcpTools: [tools_1.BaseAITool.WEB_SEARCH_TOOL, tools_1.BaseAITool.BROWSER_TOOL],
+            a2abaseTools: [tools_1.BaseAITool.WEB_SEARCH_TOOL, tools_1.BaseAITool.BROWSER_TOOL],
         });
         created = true;
     }

@@ -1,23 +1,23 @@
 /**
- * Agent management for BaseAI SDK
+ * Agent management for A2ABase SDK
  */
 
 import { AgentsClient, AgentCreateRequest, AgentUpdateRequest, AgentResponse } from './api/agents';
 import { ThreadsClient, AgentStartRequest } from './api/threads';
-import { BaseAITool, MCPTools, BaseAITools, getAgentPressToolDescription } from './tools';
+import { A2ABaseTool, MCPTools, A2ABaseTools, getAgentPressToolDescription } from './tools';
 import { Thread, AgentRun } from './thread';
 
 export interface AgentCreateOptions {
   name: string;
   systemPrompt: string;
-  mcpTools?: BaseAITools[];
+  a2abaseTools?: A2ABaseTools[];
   allowedTools?: string[];
 }
 
 export interface AgentUpdateOptions {
   name?: string;
   systemPrompt?: string;
-  mcpTools?: BaseAITools[];
+  a2abaseTools?: A2ABaseTools[];
   allowedTools?: string[];
 }
 
@@ -36,11 +36,11 @@ export class Agent {
     let agentpressTools: Record<string, { enabled: boolean; description: string }> | undefined;
     let customMcps: any[] | undefined;
 
-    if (options.mcpTools) {
+    if (options.a2abaseTools) {
       agentpressTools = {};
       customMcps = [];
       
-      for (const tool of options.mcpTools) {
+      for (const tool of options.a2abaseTools) {
         if (tool instanceof MCPTools) {
           const isEnabled = options.allowedTools ? options.allowedTools.includes(tool.name) : true;
           customMcps.push({
@@ -49,8 +49,8 @@ export class Agent {
             config: { url: tool.url },
             enabled_tools: isEnabled ? tool.enabledTools : [],
           });
-        } else if (typeof tool === 'string' || Object.values(BaseAITool).includes(tool as any)) {
-          const toolEnum = typeof tool === 'string' ? (tool as BaseAITool) : (tool as BaseAITool);
+        } else if (typeof tool === 'string' || Object.values(A2ABaseTool).includes(tool as any)) {
+          const toolEnum = typeof tool === 'string' ? (tool as A2ABaseTool) : (tool as A2ABaseTool);
           const isEnabled = options.allowedTools ? options.allowedTools.includes(toolEnum) : true;
           agentpressTools[toolEnum] = {
             enabled: isEnabled,
@@ -110,7 +110,7 @@ export class Agent {
   }
 }
 
-export class BaseAIAgent {
+export class A2ABaseAgent {
   private client: AgentsClient;
 
   constructor(client: AgentsClient) {
@@ -121,7 +121,7 @@ export class BaseAIAgent {
     const agentpressTools: Record<string, { enabled: boolean; description: string }> = {};
     const customMcps: any[] = [];
 
-    for (const tool of options.mcpTools || []) {
+    for (const tool of options.a2abaseTools || []) {
       if (tool instanceof MCPTools) {
         const isEnabled = options.allowedTools ? options.allowedTools.includes(tool.name) : true;
         customMcps.push({
@@ -130,8 +130,8 @@ export class BaseAIAgent {
           config: { url: tool.url },
           enabled_tools: isEnabled ? tool.enabledTools : [],
         });
-      } else if (typeof tool === 'string' || Object.values(BaseAITool).includes(tool as any)) {
-        const toolEnum = typeof tool === 'string' ? (tool as BaseAITool) : (tool as BaseAITool);
+      } else if (typeof tool === 'string' || Object.values(A2ABaseTool).includes(tool as any)) {
+        const toolEnum = typeof tool === 'string' ? (tool as A2ABaseTool) : (tool as A2ABaseTool);
         const isEnabled = options.allowedTools ? options.allowedTools.includes(toolEnum) : true;
         agentpressTools[toolEnum] = {
           enabled: isEnabled,
@@ -160,10 +160,22 @@ export class BaseAIAgent {
 
   async findByName(name: string): Promise<Agent | null> {
     try {
-      const response = await this.client.getAgents({ page: 1, limit: 100 });
-      for (const agent of response.agents) {
-        if (agent.name === name) {
-          return new Agent(this.client, agent.agent_id);
+      let resp = await this.client.getAgents({ page: 1, limit: 100, search: name });
+      // First try exact match from search results
+      for (const a of resp.agents) {
+        if (a.name === name) {
+          return new Agent(this.client, a.agent_id);
+        }
+      }
+      // If not found and we have more pages, check them
+      if (resp.pagination && resp.pagination.pages > 1) {
+        for (let page = 2; page <= Math.min(resp.pagination.pages, 10); page++) {
+          resp = await this.client.getAgents({ page, limit: 100, search: name });
+          for (const a of resp.agents) {
+            if (a.name === name) {
+              return new Agent(this.client, a.agent_id);
+            }
+          }
         }
       }
       return null;

@@ -1,6 +1,6 @@
-# BaseAI TypeScript/JavaScript SDK
+# A2ABase TypeScript/JavaScript SDK
 
-TypeScript/JavaScript SDK for the BaseAI platform.
+TypeScript/JavaScript SDK for the A2ABase platform.
 
 ## Installation
 
@@ -19,8 +19,8 @@ yarn add @belarabyai/baseai
 ## Quick Start
 
 ```typescript
-import { BaseAI } from '@belarabyai/baseai';
-import { BaseAITool } from '@belarabyai/baseai';
+import { A2ABase } from '@belarabyai/baseai';
+import { A2ABaseTool } from '@belarabyai/baseai';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -28,7 +28,7 @@ async function main() {
     throw new Error('Please set BASEAI_API_KEY environment variable');
   }
 
-  const client = new BaseAI({
+  const client = new A2ABase({
     apiKey,
     apiUrl: 'https://a2abase.ai/api',
   });
@@ -37,7 +37,7 @@ async function main() {
   const agent = await client.Agent.create({
     name: 'My Assistant',
     systemPrompt: 'You are a helpful AI assistant.',
-    mcpTools: [BaseAITool.WEB_SEARCH_TOOL],
+    a2abaseTools: [A2ABaseTool.WEB_SEARCH_TOOL],
   });
 
   const run = await agent.run('Hello, how are you?', thread);
@@ -61,7 +61,7 @@ npm run build
 
 Comprehensive examples are available in the [`example/`](./example/) directory, demonstrating:
 
-- **Tool-Specific Examples**: Each tool from `BaseAITool` enum with practical use cases
+- **Tool-Specific Examples**: Each tool from `A2ABaseTool` enum with practical use cases
 - **Common Use Cases**: Real-world scenarios like research, content creation, automation, and more
 
 See the [examples README](./example/README.md) for a complete list of available examples.
@@ -93,7 +93,7 @@ Google Colab primarily supports Python, but you can use TypeScript in other note
 
 ## Available Tools
 
-The SDK provides access to various tools through the `BaseAITool` enum:
+The SDK provides access to various tools through the `A2ABaseTool` enum:
 
 - **File Management**: `FILES_TOOL`, `UPLOAD_FILE_TOOL`
 - **Development**: `SHELL_TOOL`, `WEB_DEV_TOOL`, `DEPLOY_TOOL`, `EXPOSE_TOOL`

@@ -1,8 +1,8 @@
 /**
- * Tools for the BaseAI SDK
+ * Tools for the A2ABase SDK
  */
 
-export enum BaseAITool {
+export enum A2ABaseTool {
   FILES_TOOL = "sb_files_tool",
   SHELL_TOOL = "sb_shell_tool",
   WEB_DEV_TOOL = "sb_web_dev_tool",
@@ -23,7 +23,7 @@ export enum BaseAITool {
   DATA_PROVIDERS_TOOL = "data_providers_tool",
 }
 
-const BaseAIToolDescriptions: Record<string, string> = {
+const A2ABaseToolDescriptions: Record<string, string> = {
   "sb_files_tool": "Read, write, and edit files",
   "sb_shell_tool": "Execute shell commands",
   "sb_web_dev_tool": "Create and manage modern web applications with Next.js and shadcn/ui",
@@ -44,8 +44,8 @@ const BaseAIToolDescriptions: Record<string, string> = {
   "data_providers_tool": "Access structured data from various providers",
 };
 
-export function getAgentPressToolDescription(tool: BaseAITool): string {
-  const desc = BaseAIToolDescriptions[tool];
+export function getAgentPressToolDescription(tool: A2ABaseTool): string {
+  const desc = A2ABaseToolDescriptions[tool];
   if (!desc) {
     throw new Error(`No description found for ${tool}`);
   }
@@ -78,5 +78,5 @@ export class MCPTools {
   }
 }
 
-export type BaseAITools = BaseAITool | MCPTools;
+export type A2ABaseTools = A2ABaseTool | MCPTools;
 

@@ -23,7 +23,7 @@ async function main() {
         agent = await client.Agent.create({
             name: desiredName,
             systemPrompt: 'Monitor support inbox, label priority, suggest responses, and escalate critical issues.',
-            mcpTools: [tools_1.BaseAITool.WEB_SEARCH_TOOL],
+            a2abaseTools: [tools_1.BaseAITool.WEB_SEARCH_TOOL],
         });
         created = true;
     }
