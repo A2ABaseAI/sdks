@@ -1,26 +1,112 @@
-# A2ABase TypeScript/JavaScript SDK
+# A2ABaseAI TypeScript/JavaScript SDK
 
-TypeScript/JavaScript SDK for the A2ABase platform.
+<p align="center">
+  <img src="https://a2abase.ai/belarabyai-symbol.svg" alt="A2ABaseAI" width="110" />
+</p>
 
-## Installation
+<p align="center">
+  <b>One import: tools, auth, sandboxes and deployment included.</b>
+</p>
 
-```bash
-npm install @belarabyai/baseai
-```
+<p align="center">
+  <a href="https://www.npmjs.com/package/@belarabyai/a2abase"><img src="https://img.shields.io/npm/v/@belarabyai/a2abase?label=TypeScript%20SDK" alt="npm"></a>
+  <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
+  <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
+  <img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT License">
+</p>
 
-📦 **Published on npm**: [https://www.npmjs.com/package/@belarabyai/baseai](https://www.npmjs.com/package/@belarabyai/baseai)
+---
 
-Or with yarn:
+> A2ABaseAI TypeScript/JavaScript SDK for building and shipping production grade AI agents.  
+> One line gives you access to 50+ tools, 300+ integrations, and all major LLMs through a single unified platform.
 
-```bash
-yarn add @belarabyai/baseai
-```
+A2ABaseAI SDK handles authentication, tool execution, sandboxes, and integrations so you can stay focused on agent logic.  
+Bring your own tool subscriptions or use ours. Migrate between providers without touching your agent code.
 
-## Quick Start
+## 🔍 What is A2ABaseAI SDK?
 
 ```typescript
-import { A2ABase } from '@belarabyai/baseai';
-import { A2ABaseTool } from '@belarabyai/baseai';
+import { A2ABaseTool } from '@belarabyai/a2abase';
+
+// Hundreds of ready to use integration and tools for agents
+const tool = A2ABaseTool.*;
+```
+
+- One import gives your agents access to a large tool catalog  
+- One API key unlocks better rates with the providers you already use  
+- Ship faster with batteries included workflows, sandboxes, and deployments  
+
+## 🔑 Get your API key
+
+1. Sign up at **[A2ABaseAI Dashboard](https://a2abase.ai/settings/api-keys)**
+2. Create an API key
+3. Set it locally
+
+```bash
+export BASEAI_API_KEY="pk_xxx:sk_xxx"
+```
+
+**Install**: `npm install @belarabyai/a2abase`
+
+You are ready to build.
+
+### Core capabilities
+
+- Agent and workflow management  
+- Tool orchestration and execution  
+- Secure sandboxes for code, shells, and browsers  
+- Long term knowledge and document storage  
+- Deep integration library through MCP  
+
+The SDK exposes high level concepts: `A2ABase` (main client), `Agent`, `Thread`, `Run`, and `A2ABaseTool`.
+
+## 📊 Tool categories at a glance
+
+| Category               | Examples                                           | Primary use cases                          |
+| ---------------------- | -------------------------------------------------- | -------------------------------------------|
+| File and workspace     | Files, Upload, Knowledge Base                      | Code, docs, configs, retrieval             |
+| Development            | Shell, Web Dev, Deploy, Expose                     | Build and ship apps from inside agents     |
+| Web and browser        | Browser, Advanced Browser, Web Search, Image Search| Scraping, research, end to end automation  |
+| Content creation       | Docs, Sheets, Presentations, Design                | Reports, decks, dashboards, creative work  |
+| AI and vision          | Vision, Image Edit                                 | Screenshot analysis, visual agents         |
+| Data and integrations  | Data Providers, MCP integrations                   | Connect SaaS, CRMs, clouds, and databases  |
+| Search                 | People Search, Company Search                      | Prospecting and enrichment                 |
+| System automation      | Computer Automation                                | GUI and desktop control                    |
+
+For the complete tool reference see the SDK specific docs.
+
+## ✅ The A2ABaseAI solution
+
+**One SDK. One API key. Everything wired together.**
+
+- ✅ 50+ built in tools  
+  Web search, browser control, files, web dev, docs, sheets, presentations, vision, images, and more  
+- ✅ 300+ MCP integrations  
+  Connect Gmail, Slack, GitHub, Notion, CRMs, databases, cloud, and hundreds of services  
+- ✅ All major LLMs behind one interface  
+  Swap models and providers without touching your agent code  
+- ✅ Secure, isolated sandboxes  
+  Run code, shells, browsers, and tools in contained environments  
+- ✅ Pay as you go  
+  Only pay for what runs. No platform lock in, no per seat fees  
+- ✅ Type safe SDK  
+  Full IntelliSense and autocomplete in TypeScript  
+
+No More:
+- ❌ Juggling 10+ API keys and accounts  
+- ❌ Gluing together multiple SDKs and libraries  
+- ❌ Hunting for the right tools and benchmarking them  
+- ❌ Writing fragile one off integrations  
+- ❌ Owning all auth and security yourself  
+- ❌ Paying for a pile of separate subscriptions  
+
+**Install one SDK, call one client, ship a working agent in minutes.**
+
+## 🚀 Quick start
+
+```typescript
+import { A2ABase } from '@belarabyai/a2abase';
+import { A2ABaseTool } from '@belarabyai/a2abase';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
@@ -42,7 +128,7 @@ async function main() {
 
   const run = await agent.run('Hello, how are you?', thread);
   const stream = await run.getStream();
-  
+
   for await (const chunk of stream) {
     process.stdout.write(chunk);
   }
@@ -51,66 +137,103 @@ async function main() {
 main();
 ```
 
-## Building
+## 🛠 Tooling overview
+
+The SDK exposes a unified tool enum (`A2ABaseTool`) that covers the full tool catalog.
+
+Instead of configuring dozens of separate tools, you enable categories and get a coherent surface:
+
+### File and workspace
+
+- File operations: create, read, edit, rewrite, delete  
+- Upload files into the sandbox workspace  
+- Knowledge base with semantic search, sync, and long term memory  
+
+Typical uses: codegen, configuration files, document workflows, retrieval for agents.
+
+### Development and deployment
+
+- Shell tools in isolated environments  
+- Web dev tools for React, Next.js, Vite, and shadcn based apps  
+- Deployment helpers and port exposure for preview links  
+
+Typical uses: build agents that scaffold apps, run migrations, deploy small services.
+
+### Web and browser automation
+
+- Standard web search and scraping  
+- Browser automation with full DOM control  
+- Multi tab flows, form filling, scrolling, screenshots  
+
+Typical uses: research agents, competitor intelligence, test runners, web workflows.
+
+### Content and productivity
+
+- Docs, sheets, and presentations  
+- Design and image editing tools  
+- Presentation outlines and structured content planning  
+
+Typical uses: report writers, slide generators, internal tooling, marketing assistants.
+
+### AI and vision
+
+- Vision tools for screenshots and document images  
+- Image generation and editing  
+
+Typical uses: UI review, PDF parsing, creative image agents.
+
+### Data and integrations
+
+Through data provider tools and MCP you can connect to:
+
+- Productivity: Gmail, Calendar, Slack, Notion, Linear, Asana, Jira, Trello  
+- Dev and cloud: GitHub, GitLab, Bitbucket, Docker Hub, AWS, GCP, Azure  
+- CRM and sales: Salesforce, HubSpot, Pipedrive, Zoho, Intercom  
+- Data and storage: Google Sheets, Drive, Dropbox, MongoDB, Postgres, MySQL  
+- Marketing and social: X, LinkedIn, Facebook, Instagram, Mailchimp, SendGrid  
+- Commerce and payments: Shopify, Stripe, PayPal, WooCommerce, Square  
+
+Plug in via Composio MCP servers or your own MCP endpoints.  
+A2ABaseAI manages auth, credentials, and routing for you.
+
+### Search and automation
+
+- People search and company search for lead gen and enrichment  
+- Computer and desktop automation for full system level workflows  
+
+## 📚 Examples
+
+The SDK ships with real world examples in `./example/`.
+
+Run examples:
 
 ```bash
+# TypeScript
+npm install
 npm run build
+node dist/example/<name>.js
 ```
 
-## Examples
+## 📖 Documentation
 
-Comprehensive examples are available in the [`example/`](./example/) directory, demonstrating:
-
-- **Tool-Specific Examples**: Each tool from `A2ABaseTool` enum with practical use cases
-- **Common Use Cases**: Real-world scenarios like research, content creation, automation, and more
-
-See the [examples README](./example/README.md) for a complete list of available examples.
-
-To run an example:
-
-```bash
-export BASEAI_API_KEY="pk_xxx:sk_xxx"
-npm run build
-node dist/example/customer_support_triage.js
-```
-
-### Running Examples in Notebooks
-
-Google Colab primarily supports Python, but you can use TypeScript in other notebook environments:
-
-**Option 1: Observable Notebooks**
-1. Go to [Observable](https://observablehq.com/)
-2. Create a new notebook
-3. Install the SDK: `npm install @belarabyai/baseai`
-4. Copy example code from the [`example/`](./example/) directory
-
-**Option 2: Jupyter Notebooks with JavaScript kernel**
-1. Install: `npm install -g ijavascript`
-2. Install kernel: `jupyter kernelspec install --name javascript --user`
-3. Start Jupyter: `jupyter notebook`
-4. Create a new JavaScript notebook
-5. Copy example code from the [`example/`](./example/) directory
-
-## Available Tools
-
-The SDK provides access to various tools through the `A2ABaseTool` enum:
-
-- **File Management**: `FILES_TOOL`, `UPLOAD_FILE_TOOL`
-- **Development**: `SHELL_TOOL`, `WEB_DEV_TOOL`, `DEPLOY_TOOL`, `EXPOSE_TOOL`
-- **Image Tools**: `VISION_TOOL`, `IMAGE_SEARCH_TOOL`, `IMAGE_EDIT_TOOL`
-- **Content Creation**: `DOCS_TOOL`, `SHEETS_TOOL`, `PRESENTATION_TOOL`, `PRESENTATION_OUTLINE_TOOL`, `DESIGN_TOOL`
-- **Knowledge & Data**: `KB_TOOL`, `DATA_PROVIDERS_TOOL`
-- **Search & Browser**: `WEB_SEARCH_TOOL`, `BROWSER_TOOL`
-
-## Documentation
-
-- **npm Package**: [https://www.npmjs.com/package/@belarabyai/baseai](https://www.npmjs.com/package/@belarabyai/baseai)
-- **GitHub Repository**: [https://github.com/A2ABaseAI/sdks](https://github.com/A2ABaseAI/sdks)
-- **Full Documentation**: See the [repository](https://github.com/A2ABaseAI/sdks) for more examples and API reference.
+- [TypeScript SDK docs](./README.md)  
+- [GitHub Repository](https://github.com/A2ABaseAI/sdks)  
 
 ## 💬 Support
 
-Need help? Join our Discord community for support and discussions:
+- Discord: https://discord.gg/qAncfHmYUm  
 
-- **Discord**: [https://discord.gg/qAncfHmYUm](https://discord.gg/qAncfHmYUm)
+Bug reports and feature requests are welcome through GitHub issues.
 
+## 🤝 Contributing
+
+Contributions are welcome.
+
+- Open an issue to discuss larger changes  
+- Submit pull requests for bug fixes or new examples  
+- Follow the style and lint rules for the SDK  
+
+## 📄 License
+
+Released under the **MIT License**.  
+See `LICENSE` for full details.

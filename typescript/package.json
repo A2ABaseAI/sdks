@@ -1,6 +1,6 @@
 {
   "name": "@belarabyai/a2abase",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A2ABase SDK for TypeScript/JavaScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
