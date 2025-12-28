@@ -9,7 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/a2abase"><img src="https://img.shields.io/npm/v/a2abase?label=TypeScript%20SDK" alt="npm"></a>
+  <!-- <a href="https://www.npmjs.com/package/a2abase"><img src="https://img.shields.io/npm/v/a2abase?label=TypeScript%20SDK" alt="npm"></a> -->
+  <img src="https://img.shields.io/badge/npm-ready%20to%20publish-orange" alt="npm">
   <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
   <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT License">

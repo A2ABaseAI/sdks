@@ -11,6 +11,7 @@
 <p align="center">
   <a href="https://pypi.org/project/a2abase/"><img src="https://img.shields.io/pypi/v/a2abase?label=Python%20SDK" alt="PyPI"></a>
   <a href="https://www.npmjs.com/package/a2abase"><img src="https://img.shields.io/npm/v/a2abase?label=TypeScript%20SDK" alt="npm"></a>
+  <!-- Note: TypeScript SDK package is ready but not yet published to npm -->
   <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
   <!-- <a href="https://discord.gg/qAncfHmYUm"><img src="https://img.shields.io/discord/000000000000000000?label=Discord&logo=discord&logoColor=white" alt="Discord"></a> -->
   <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
