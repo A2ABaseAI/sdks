@@ -10,7 +10,7 @@ from rich.panel import Panel
 from rich.prompt import Confirm
 from rich.table import Table
 
-from a2abase_cli.generators.shared import find_project_root
+from a2abase_cli.generators.shared import ensure_a2abase_sdk_installed, find_project_root
 
 console = Console()
 
@@ -18,18 +18,21 @@ console = Console()
 def dev_command(
     watch: bool = typer.Option(True, "--watch/--no-watch", help="Enable auto-reload"),
     port: Optional[int] = typer.Option(None, "--port", "-p", help="Port (if applicable)"),
-    mcp_port: Optional[int] = typer.Option(8000, "--mcp-port", help="MCP server port"),
-    no_mcp: bool = typer.Option(False, "--no-mcp", help="Don't start MCP server"),
-    ngrok: bool = typer.Option(True, "--ngrok/--no-ngrok", help="Expose MCP server via ngrok (required for remote agents)"),
+    mcp_port: Optional[int] = typer.Option(8000, "--mcp-port", help="MCP server port (advanced template only)"),
+    no_mcp: bool = typer.Option(False, "--no-mcp", help="Don't start MCP server (advanced template only)"),
+    ngrok: bool = typer.Option(True, "--ngrok/--no-ngrok", help="Expose MCP server via ngrok (advanced template only, required for remote agents)"),
     ngrok_auth_token: Optional[str] = typer.Option(None, "--ngrok-token", help="Ngrok auth token (or set NGROK_AUTH_TOKEN env var)"),
 ) -> None:
     """Run the project in development mode with auto-reload and MCP server.
     
-    IMPORTANT: Since A2ABase agents run on remote servers, ngrok is REQUIRED to expose
-    your local MCP server to the internet. The MCP server must be publicly accessible
+    IMPORTANT: MCP server and ngrok are only available for 'advanced' template projects.
+    For 'basic' template projects, only native A2ABase tools are available.
+    
+    For advanced templates: Since A2ABase agents run on remote servers, ngrok is REQUIRED
+    to expose your local MCP server to the internet. The MCP server must be publicly accessible
     for agents to use your custom tools.
     
-    Ngrok is enabled by default. Use --no-ngrok only if testing locally without remote agents.
+    Ngrok is enabled by default for advanced templates. Use --no-ngrok only if testing locally without remote agents.
     """
     console.print(Panel.fit("[bold blue]Development Mode[/bold blue]", border_style="blue"))
 
@@ -54,6 +57,7 @@ def dev_command(
         raise typer.Exit(1)
 
     package_name = config.get("package_name", "src")
+    template = config.get("template", "basic")
     main_module = f"{package_name}.main"
     mcp_module = f"{package_name}.tools.mcp_server"
 
@@ -63,9 +67,39 @@ def dev_command(
         console.print(f"[red]Error:[/red] {main_file} not found.")
         raise typer.Exit(1)
 
-    # Check if MCP server exists
+    # Ensure a2abase SDK is installed (automatically installs if missing)
+    console.print("[cyan]Checking a2abase SDK installation...[/cyan]")
+    success, message = ensure_a2abase_sdk_installed(project_root, auto_install=True)
+    if success:
+        if "installed successfully" in message.lower():
+            console.print(f"[green]✓[/green] {message}")
+        else:
+            console.print(f"[green]✓[/green] {message}")
+    else:
+        console.print(f"[red]✗[/red] {message}")
+        console.print("[yellow]Continuing with stub SDK (limited functionality)[/yellow]")
+
+    # MCP server and ngrok are only available for advanced template
+    if template != "advanced":
+        # For non-advanced templates, disable MCP and ngrok
+        # Only show error if user explicitly tried to use MCP features
+        # We can't easily detect if flags were explicitly passed, so we check if:
+        # 1. User passed --ngrok-token (explicit MCP usage)
+        # 2. User passed custom --mcp-port (explicit MCP usage)
+        # Otherwise, silently disable MCP/ngrok for basic templates
+        if ngrok_auth_token is not None or (mcp_port is not None and mcp_port != 8000):
+            console.print("[red]Error:[/red] MCP server and ngrok are only available for 'advanced' template projects.")
+            console.print(f"[yellow]Current template:[/yellow] {template}")
+            console.print("[dim]To use custom tools with MCP server, create a new project with:[/dim]")
+            console.print("[cyan]  a2abase init --template advanced[/cyan]")
+            raise typer.Exit(1)
+        # Silently disable MCP and ngrok for non-advanced templates
+        no_mcp = True
+        ngrok = False
+
+    # Check if MCP server exists (only for advanced template)
     mcp_file = project_root / "src" / package_name / "tools" / "mcp_server.py"
-    start_mcp = not no_mcp and mcp_file.exists()
+    start_mcp = template == "advanced" and not no_mcp and mcp_file.exists()
 
     console.print(f"[cyan]Starting dev server for {package_name}...[/cyan]")
     if start_mcp:
@@ -181,17 +215,25 @@ def dev_command(
                     main_process = None
                     try:
                         while True:
-                            # Terminate existing processes
-                            if main_process:
+                            # Terminate existing processes (only if they're still running)
+                            if main_process and main_process.returncode is None:
                                 main_process.terminate()
                                 await asyncio.sleep(0.5)
-                            if mcp_process:
+                            if mcp_process and mcp_process.returncode is None:
                                 mcp_process.terminate()
                                 await asyncio.sleep(0.5)
 
-                            # Start MCP server if needed
-                            if start_mcp:
+                            # Start MCP server if needed (only if not already running)
+                            if start_mcp and mcp_process is None:
                                 console.print(f"[green]Starting MCP server on port {mcp_port}...[/green]")
+                                # Set up environment with PYTHONPATH
+                                import os
+                                mcp_env = os.environ.copy()
+                                src_path = str(project_root / "src")
+                                if "PYTHONPATH" in mcp_env:
+                                    mcp_env["PYTHONPATH"] = f"{src_path}{os.pathsep}{mcp_env['PYTHONPATH']}"
+                                else:
+                                    mcp_env["PYTHONPATH"] = src_path
                                 # Start MCP server in background
                                 mcp_process = await asyncio.create_subprocess_exec(
                                     sys.executable,
@@ -204,6 +246,7 @@ def dev_command(
                                     str(mcp_port),
                                     "--reload",
                                     cwd=project_root,
+                                    env=mcp_env,
                                     stdout=subprocess.DEVNULL,  # Suppress MCP server output
                                     stderr=subprocess.DEVNULL,
                                     start_new_session=True,  # Run in new session to prevent blocking
@@ -272,6 +315,12 @@ def dev_command(
                             # Pass environment with MCP_ENDPOINT if ngrok is active
                             import os
                             env = os.environ.copy()
+                            # Add src directory to PYTHONPATH so Python can find the module
+                            src_path = str(project_root / "src")
+                            if "PYTHONPATH" in env:
+                                env["PYTHONPATH"] = f"{src_path}{os.pathsep}{env['PYTHONPATH']}"
+                            else:
+                                env["PYTHONPATH"] = src_path
                             if ngrok_url_ref[0]:
                                 env["MCP_ENDPOINT"] = f"{ngrok_url_ref[0]}/mcp"
                             
@@ -310,11 +359,15 @@ def dev_command(
                             
                             for task in done:
                                 if task == process_task:
-                                    # Main process finished - keep MCP server running for remote agents
+                                    # Main process finished
                                     main_finished = True
                                     console.print("\n[green]✓[/green] Main application finished.")
-                                    console.print("[cyan]MCP server and ngrok tunnel remain active for remote agents.[/cyan]")
-                                    console.print("[dim]Press Ctrl+C to stop all services, or edit files to reload.[/dim]")
+                                    if start_mcp:
+                                        # Only show MCP message if MCP server is actually running
+                                        console.print("[cyan]MCP server and ngrok tunnel remain active for remote agents.[/cyan]")
+                                        console.print("[dim]Press Ctrl+C to stop all services, or edit files to reload.[/dim]")
+                                    else:
+                                        console.print("[dim]Press Ctrl+C to stop, or edit files to reload.[/dim]")
                                 elif task == watch_task:
                                     # File changed - restart everything
                                     file_changed = True
@@ -326,21 +379,17 @@ def dev_command(
                                     task.cancel()
                                 break
                             elif main_finished:
-                                # Main finished - keep MCP server running, wait for file changes or interrupt
+                                # Main finished - restart it after a short delay
                                 # Cancel the watch_task since it's done, but keep MCP server running
                                 for task in pending:
                                     task.cancel()
                                 
-                                # Keep watching for file changes without terminating MCP server
-                                try:
-                                    async for _changes in awatch(project_root / "src"):
-                                        console.print("[yellow]Files changed, reloading...[/yellow]")
-                                        # Only terminate main_process if it's still running
-                                        if main_process and main_process.returncode is None:
-                                            main_process.terminate()
-                                        break
-                                except KeyboardInterrupt:
-                                    raise
+                                # Main process finished, clear it so it can be restarted
+                                main_process = None
+                                # Small delay before restarting
+                                await asyncio.sleep(1.0)
+                                # Continue the loop to restart the main process
+                                continue
                             
                             # Small delay before restart
                             await asyncio.sleep(0.5)
@@ -383,6 +432,14 @@ def dev_command(
                 # Start MCP server if needed
                 if start_mcp:
                     console.print(f"[green]Starting MCP server on port {mcp_port}...[/green]")
+                    # Set up environment with PYTHONPATH
+                    import os
+                    mcp_env = os.environ.copy()
+                    src_path = str(project_root / "src")
+                    if "PYTHONPATH" in mcp_env:
+                        mcp_env["PYTHONPATH"] = f"{src_path}{os.pathsep}{mcp_env['PYTHONPATH']}"
+                    else:
+                        mcp_env["PYTHONPATH"] = src_path
                     mcp_proc = subprocess.Popen(
                         [
                             sys.executable,
@@ -395,6 +452,7 @@ def dev_command(
                             str(mcp_port),
                         ],
                         cwd=project_root,
+                        env=mcp_env,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                     )
@@ -428,7 +486,14 @@ def dev_command(
                 # Run main application
                 try:
                     # Pass environment with MCP_ENDPOINT if ngrok is active
+                    import os
                     env = os.environ.copy()
+                    # Add src directory to PYTHONPATH so Python can find the module
+                    src_path = str(project_root / "src")
+                    if "PYTHONPATH" in env:
+                        env["PYTHONPATH"] = f"{src_path}{os.pathsep}{env['PYTHONPATH']}"
+                    else:
+                        env["PYTHONPATH"] = src_path
                     if ngrok_url:
                         env["MCP_ENDPOINT"] = f"{ngrok_url}/mcp"
                     subprocess.run([sys.executable, "-m", main_module], cwd=project_root, env=env)
@@ -439,6 +504,14 @@ def dev_command(
             # No watch mode - start MCP server and run main app
             if start_mcp:
                 console.print(f"[green]Starting MCP server on port {mcp_port}...[/green]")
+                # Set up environment with PYTHONPATH
+                import os
+                mcp_env = os.environ.copy()
+                src_path = str(project_root / "src")
+                if "PYTHONPATH" in mcp_env:
+                    mcp_env["PYTHONPATH"] = f"{src_path}{os.pathsep}{mcp_env['PYTHONPATH']}"
+                else:
+                    mcp_env["PYTHONPATH"] = src_path
                 mcp_proc = subprocess.Popen(
                     [
                         sys.executable,
@@ -451,6 +524,7 @@ def dev_command(
                         str(mcp_port),
                     ],
                     cwd=project_root,
+                    env=mcp_env,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     start_new_session=True,  # Run in new session to prevent blocking
@@ -477,7 +551,16 @@ def dev_command(
                     console.print("[dim]httpx not available, skipping health check[/dim]")
             
             try:
-                subprocess.run([sys.executable, "-m", main_module], cwd=project_root)
+                # Set up environment with PYTHONPATH
+                import os
+                env = os.environ.copy()
+                # Add src directory to PYTHONPATH so Python can find the module
+                src_path = str(project_root / "src")
+                if "PYTHONPATH" in env:
+                    env["PYTHONPATH"] = f"{src_path}{os.pathsep}{env['PYTHONPATH']}"
+                else:
+                    env["PYTHONPATH"] = src_path
+                subprocess.run([sys.executable, "-m", main_module], cwd=project_root, env=env)
             finally:
                 if start_mcp and mcp_proc:
                     mcp_proc.terminate()

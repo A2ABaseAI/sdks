@@ -9,7 +9,7 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 
-from a2abase_cli.generators.shared import find_project_root
+from a2abase_cli.generators.shared import ensure_a2abase_sdk_installed, find_project_root
 
 console = Console()
 
@@ -48,6 +48,18 @@ def run_command(
         console.print(f"[red]Error:[/red] {main_file} not found.")
         raise typer.Exit(1)
 
+    # Ensure a2abase SDK is installed (automatically installs if missing)
+    console.print("[cyan]Checking a2abase SDK installation...[/cyan]")
+    success, message = ensure_a2abase_sdk_installed(project_root, auto_install=True)
+    if success:
+        if "installed successfully" in message.lower():
+            console.print(f"[green]✓[/green] {message}")
+        else:
+            console.print(f"[green]✓[/green] {message}")
+    else:
+        console.print(f"[red]✗[/red] {message}")
+        console.print("[yellow]Continuing with stub SDK (limited functionality)[/yellow]")
+
     # Prepare command
     cmd = [sys.executable, "-m", main_module]
     if input_text:
@@ -55,10 +67,21 @@ def run_command(
     if json_output:
         cmd.append("--json")
 
+    # Set up environment with PYTHONPATH
+    import os
+    env = os.environ.copy()
+    # Add src directory to PYTHONPATH so Python can find the module
+    src_path = str(project_root / "src")
+    if "PYTHONPATH" in env:
+        env["PYTHONPATH"] = f"{src_path}{os.pathsep}{env['PYTHONPATH']}"
+    else:
+        env["PYTHONPATH"] = src_path
+
     try:
         result = subprocess.run(
             cmd,
             cwd=project_root,
+            env=env,
             capture_output=not json_output,
             text=True,
         )

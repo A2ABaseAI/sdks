@@ -1,9 +1,11 @@
 """Shared utilities for generators."""
 import re
 import shutil
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
 
 def get_available_a2abase_tools() -> list[tuple[str, str]]:
@@ -249,3 +251,64 @@ def update_agent_with_tool(
         return True
 
     return False
+
+
+def ensure_a2abase_sdk_installed(project_root: Optional[Path] = None, auto_install: bool = True) -> Tuple[bool, str]:
+    """
+    Check if a2abase SDK is installed, and install it if not.
+    
+    Args:
+        project_root: Optional project root path (for package manager detection)
+        auto_install: If True, automatically install if not found. If False, only check.
+    
+    Returns:
+        Tuple of (success: bool, message: str)
+    """
+    # Check if a2abase is already installed
+    try:
+        import a2abase  # noqa: F401
+        return True, "a2abase SDK is installed"
+    except ImportError:
+        if not auto_install:
+            return False, "a2abase SDK is not installed"
+    
+    # Try to determine package manager from project config
+    package_manager = "pip"
+    if project_root:
+        config_path = project_root / "a2abase.yaml"
+        if config_path.exists():
+            try:
+                import yaml
+                with open(config_path) as f:
+                    config = yaml.safe_load(f)
+                    package_manager = config.get("package_manager", "pip")
+            except Exception:
+                pass
+    
+    # Install a2abase SDK
+    try:
+        if package_manager == "uv":
+            result = subprocess.run(
+                ["uv", "pip", "install", "a2abase"],
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        else:
+            result = subprocess.run(
+                [sys.executable, "-m", "pip", "install", "a2abase"],
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        
+        if result.returncode == 0:
+            return True, "a2abase SDK installed successfully"
+        else:
+            return False, f"Failed to install a2abase SDK: {result.stderr}"
+    except subprocess.TimeoutExpired:
+        return False, "Installation timed out"
+    except FileNotFoundError:
+        return False, f"{package_manager} not found. Please install a2abase manually: pip install a2abase"
+    except Exception as e:
+        return False, f"Error installing a2abase SDK: {str(e)}"
