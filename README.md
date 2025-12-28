@@ -264,7 +264,7 @@ A2ABaseAI manages auth, credentials, and routing for you.
 
 Both SDKs ship with real world examples.
 
-- **Python**: `./python/example/`  
+- **Python**: `./python/examples/`  
 - **TypeScript**: `./typescript/example/`  
 
 Run examples:
@@ -272,22 +272,23 @@ Run examples:
 ```bash
 # Python
 cd python
-PYTHONPATH=. python3 example/<name>.py
+PYTHONPATH=. python3 examples/<name>.py
 
 # TypeScript
+cd typescript
 npm install
 npm run build
 node dist/example/<name>.js
 ```
 
 You can also run Python examples directly in Google Colab.  
-See `python/README.md` for details.
+See [Python SDK docs](https://github.com/A2ABaseAI/sdks/blob/main/python/README.md) for details.
 
 
 ## 📖 Documentation
 
-- [Python SDK docs](./python/README.md)  
-- [TypeScript SDK docs](./typescript/README.md)  
+- [Python SDK docs](https://github.com/A2ABaseAI/sdks/blob/main/python/README.md)  
+- [TypeScript SDK docs](https://github.com/A2ABaseAI/sdks/blob/main/typescript/README.md)  
 
 
 ## 💬 Support
