@@ -40,7 +40,16 @@ class Agent:
                     )
                 elif isinstance(tool, MCPTools):
                     mcp = tool
-                    is_enabled = tool.name in allowed_tools if allowed_tools else True
+                    # For MCPTools, if allowed_tools is None or empty, enable all discovered tools
+                    # If allowed_tools is provided, check if MCP name is in the list
+                    # Note: MCPTools already filters tools via its own allowed_tools parameter during initialize()
+                    if allowed_tools is None or len(allowed_tools) == 0:
+                        # No filtering - enable all discovered tools
+                        is_enabled = True
+                    else:
+                        # Check if this MCP server name is in the allowed_tools list
+                        is_enabled = tool.name in allowed_tools
+                    
                     custom_mcps.append(
                         CustomMCP(
                             name=mcp.name,
@@ -115,7 +124,16 @@ class A2ABaseAgent:
                 )
             elif isinstance(tool, MCPTools):
                 mcp = tool
-                is_enabled = tool.name in allowed_tools if allowed_tools else True
+                # For MCPTools, if allowed_tools is None or empty, enable all discovered tools
+                # If allowed_tools is provided, check if MCP name is in the list
+                # Note: MCPTools already filters tools via its own allowed_tools parameter during initialize()
+                if allowed_tools is None or len(allowed_tools) == 0:
+                    # No filtering - enable all discovered tools
+                    is_enabled = True
+                else:
+                    # Check if this MCP server name is in the allowed_tools list
+                    is_enabled = tool.name in allowed_tools
+                
                 custom_mcps.append(
                     CustomMCP(
                         name=mcp.name,
