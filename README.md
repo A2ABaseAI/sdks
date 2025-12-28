@@ -12,6 +12,7 @@
   <a href="https://pypi.org/project/a2abase/"><img src="https://img.shields.io/pypi/v/a2abase?label=Python%20SDK" alt="PyPI"></a>
   <img src="https://img.shields.io/badge/TypeScript-ready%20to%20publish-orange" alt="TypeScript SDK">
   <!-- Note: TypeScript SDK package (a2abase) is ready but not yet published to npm -->
+  <a href="https://pypi.org/project/a2abase-cli/"><img src="https://img.shields.io/pypi/v/a2abase-cli?label=CLI%20Tool" alt="PyPI"></a>
   <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
   <!-- <a href="https://discord.gg/qAncfHmYUm"><img src="https://img.shields.io/discord/000000000000000000?label=Discord&logo=discord&logoColor=white" alt="Discord"></a> -->
   <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
@@ -61,6 +62,7 @@ export BASEAI_API_KEY="pk_xxx:sk_xxx"
 ```
 - **Python**: `pip install a2abase`  
 - **TypeScript**: `npm install a2abase`  
+- **CLI Tool**: `pip install a2abase-cli`  
 
 
 
@@ -289,6 +291,7 @@ See [Python SDK docs](https://github.com/A2ABaseAI/sdks/blob/main/python/README.
 
 - [Python SDK docs](https://github.com/A2ABaseAI/sdks/blob/main/python/README.md)  
 - [TypeScript SDK docs](https://github.com/A2ABaseAI/sdks/blob/main/typescript/README.md)  
+- [CLI Tool docs](https://github.com/A2ABaseAI/sdks/blob/main/a2abase_cli/README.md)  
 
 
 ## 💬 Support
