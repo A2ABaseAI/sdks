@@ -196,6 +196,37 @@ async function main() {
 main();
 ```
 
+### CLI Tool
+
+```bash
+# Install the CLI tool
+pip install a2abase-cli
+
+# Create a new project
+a2abase init --name my-agent
+
+# Navigate to project
+cd my-agent
+
+# Set up environment (add your API key)
+cp .env.example .env
+# Edit .env and add: BASEAI_API_KEY=pk_xxx:sk_xxx
+
+# Install dependencies
+pip install -e .
+
+# Run in development mode
+a2abase dev
+```
+
+**That's it!** You now have a fully functional A2ABase agent project with:
+- ✅ Pre-configured project structure
+- ✅ Example weather agent with real API integration
+- ✅ MCP server for custom tools
+- ✅ Auto-reload development server
+- ✅ Ngrok integration for remote agent access
+
+See [CLI Tool docs](https://github.com/A2ABaseAI/sdks/blob/main/a2abase_cli/README.md) for more details.
 
 ## 🛠 Tooling overview
 
