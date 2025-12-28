@@ -100,7 +100,7 @@ To run examples in Google Colab:
 
 ```python
 # Install the SDK
-!pip install a2abase-sdk
+!pip install a2abase
 
 import os
 from a2abase import A2ABaseClient

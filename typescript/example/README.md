@@ -45,7 +45,7 @@ Google Colab primarily supports Python. For TypeScript/JavaScript, use:
 **Option 1: Observable Notebooks**
 1. Go to [Observable](https://observablehq.com/)
 2. Create a new notebook
-3. Install: `npm install @belarabyai/baseai`
+3. Install: `npm install a2abase`
 4. Copy example code from files in this directory
 
 **Option 2: Jupyter with JavaScript kernel**

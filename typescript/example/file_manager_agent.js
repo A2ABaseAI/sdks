@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Example: File Manager Agent
  * Demonstrates FILES_TOOL for reading, writing, and managing files.
  */
-const baseai_1 = require("../src/baseai");
+const a2abase_1 = require("../src/a2abase");
 const tools_1 = require("../src/tools");
 async function main() {
     const apiKey = process.env.BASEAI_API_KEY;
     if (!apiKey || apiKey === 'YOUR_API_KEY') {
         throw new Error('Please set BASEAI_API_KEY environment variable');
     }
-    const client = new baseai_1.BaseAI({
+    const client = new a2abase_1.A2ABase({
         apiKey,
         apiUrl: 'https://a2abase.ai/api',
     });
@@ -23,7 +23,7 @@ async function main() {
         agent = await client.Agent.create({
             name: desiredName,
             systemPrompt: 'You are a file management assistant. You can read, write, edit, and organize files. Help users manage their file system, create documentation, organize files into directories, and perform file operations safely.',
-            a2abaseTools: [tools_1.BaseAITool.FILES_TOOL],
+            a2abaseTools: [tools_1.A2ABaseTool.FILES_TOOL],
         });
         created = true;
     }

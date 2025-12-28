@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@belarabyai/a2abase"><img src="https://img.shields.io/npm/v/@belarabyai/a2abase?label=TypeScript%20SDK" alt="npm"></a>
+  <a href="https://www.npmjs.com/package/a2abase"><img src="https://img.shields.io/npm/v/a2abase?label=TypeScript%20SDK" alt="npm"></a>
   <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
   <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT License">
@@ -26,7 +26,7 @@ Bring your own tool subscriptions or use ours. Migrate between providers without
 ## 🔍 What is A2ABaseAI SDK?
 
 ```typescript
-import { A2ABaseTool } from '@belarabyai/a2abase';
+import { A2ABaseTool } from 'a2abase';
 
 // Hundreds of ready to use integration and tools for agents
 const tool = A2ABaseTool.*;
@@ -46,7 +46,7 @@ const tool = A2ABaseTool.*;
 export BASEAI_API_KEY="pk_xxx:sk_xxx"
 ```
 
-**Install**: `npm install @belarabyai/a2abase`
+**Install**: `npm install a2abase`
 
 You are ready to build.
 
@@ -105,8 +105,8 @@ No More:
 ## 🚀 Quick start
 
 ```typescript
-import { A2ABase } from '@belarabyai/a2abase';
-import { A2ABaseTool } from '@belarabyai/a2abase';
+import { A2ABase } from 'a2abase';
+import { A2ABaseTool } from 'a2abase';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;

@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/baseai-sdk/"><img src="https://img.shields.io/pypi/v/baseai-sdk?label=Python%20SDK" alt="PyPI"></a>
-  <a href="https://www.npmjs.com/package/@belarabyai/baseai"><img src="https://img.shields.io/npm/v/@belarabyai/baseai?label=TypeScript%20SDK" alt="npm"></a>
+  <a href="https://pypi.org/project/a2abase/"><img src="https://img.shields.io/pypi/v/a2abase?label=Python%20SDK" alt="PyPI"></a>
+  <a href="https://www.npmjs.com/package/a2abase"><img src="https://img.shields.io/npm/v/a2abase?label=TypeScript%20SDK" alt="npm"></a>
   <a href="https://a2abase.ai/settings/api-keys"><img src="https://img.shields.io/badge/API-Key%20Dashboard-blue" alt="API Keys"></a>
   <!-- <a href="https://discord.gg/qAncfHmYUm"><img src="https://img.shields.io/discord/000000000000000000?label=Discord&logo=discord&logoColor=white" alt="Discord"></a> -->
   <img src="https://img.shields.io/badge/status-open%20source-success" alt="Open Source">
@@ -58,8 +58,8 @@ tool = A2ABaseTools.*
 ```bash
 export BASEAI_API_KEY="pk_xxx:sk_xxx"
 ```
-- **Python**: `pip install baseai-sdk`  
-- **TypeScript**: `npm install @belarabyai/baseai`  
+- **Python**: `pip install a2abase`  
+- **TypeScript**: `npm install a2abase`  
 
 
 
@@ -161,8 +161,8 @@ asyncio.run(main())
 ### TypeScript / JavaScript
 
 ```typescript
-import { A2ABase } from '@belarabyai/baseai';
-import { A2ABaseTool } from '@belarabyai/baseai';
+import { A2ABase } from 'a2abase';
+import { A2ABaseTool } from 'a2abase';
 
 async function main() {
   const apiKey = process.env.BASEAI_API_KEY;
