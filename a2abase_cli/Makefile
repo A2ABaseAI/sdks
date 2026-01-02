@@ -1,13 +1,13 @@
 .PHONY: install dev test lint format clean
 
 install:
-	pip install -e ".[dev]"
+	python3 -m pip install -e ".[dev]"
 
 dev:
-	pip install -e ".[dev]"
+	python3 -m pip install -e ".[dev]"
 
 test:
-	pytest
+	python3 -m pytest
 
 lint:
 	ruff check .
