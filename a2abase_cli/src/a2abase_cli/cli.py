@@ -25,6 +25,7 @@ app = typer.Typer(
 )
 
 console = Console()
+err_console = Console(file=sys.stderr)
 
 
 @app.callback(invoke_without_command=True)
@@ -79,7 +80,7 @@ def main() -> None:
         console.print("\n[yellow]Interrupted by user[/yellow]")
         sys.exit(130)
     except Exception as e:
-        console.print(f"[red]Error:[/red] {e}", err=True)
+        err_console.print(f"[red]Error:[/red] {e}")
         sys.exit(1)
 
 

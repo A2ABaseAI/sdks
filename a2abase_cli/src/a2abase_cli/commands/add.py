@@ -151,18 +151,22 @@ def add_tool_command(
                     raise typer.Exit(1)
             elif tool_choice:
                 # User entered custom name
-                tool_name = slugify(tool_choice)
+                tool_name = slugify(str(tool_choice))
             else:
                 console.print("[yellow]No tool selected[/yellow]")
                 raise typer.Exit(1)
         else:
             # No API tools available, ask for custom name
-            if name is None:
+            if name is None or type(name).__name__ == 'ArgumentInfo':
                 name = Prompt.ask("[bold cyan]Enter tool name[/bold cyan]")
-            tool_name = slugify(name)
+            tool_name = slugify(str(name))
 
     if tool_name is None:
-        tool_name = slugify(name) if name else "custom_tool"
+        # Handle typer ArgumentInfo objects
+        if name is not None and type(name).__name__ != 'ArgumentInfo':
+            tool_name = slugify(str(name))
+        else:
+            tool_name = "custom_tool"
 
     tool_file = tools_dir / f"{tool_name}.py"
     tool_schema_name = f"{tool_name.upper()}_SCHEMA"
@@ -177,9 +181,9 @@ def add_tool_command(
 
     # Ask which agent(s) to associate with
     selected_agents = []
-    if agent:
+    if agent is not None and type(agent).__name__ != 'OptionInfo':
         # Use provided agent name
-        agent_name = slugify(agent)
+        agent_name = slugify(str(agent))
         agent_file = agents_dir / f"{agent_name}_agent.py"
         if agent_file.exists():
             selected_agents.append((agent_name, agent_file))

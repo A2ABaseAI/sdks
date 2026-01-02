@@ -1,6 +1,7 @@
 """Init command - scaffold new projects."""
 import os
 import shutil
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -14,6 +15,7 @@ from a2abase_cli.generators.project import ProjectGenerator
 from a2abase_cli.generators.shared import slugify, validate_package_name
 
 console = Console()
+err_console = Console(file=sys.stderr)
 
 
 def init_command(
@@ -32,26 +34,29 @@ def init_command(
     """Initialize a new A2ABase Agent SDK project."""
     console.print(Panel.fit("[bold blue]A2ABase Project Scaffolder[/bold blue]", border_style="blue"))
 
-    # Determine working directory
-    base_dir = Path(cwd) if cwd else Path.cwd()
+    if cwd is not None and type(cwd).__name__ != 'OptionInfo':
+        base_dir = Path(str(cwd))
+    else:
+        base_dir = Path.cwd()
     base_dir = base_dir.resolve()
 
     # Interactive prompts if not provided
-    if not project_name:
+    # Handle typer OptionInfo objects
+    if not project_name or type(project_name).__name__ == 'OptionInfo':
         project_name = Prompt.ask(
             "[bold cyan]Project name[/bold cyan]",
             default="my-agent-project",
         )
-    project_name = slugify(project_name)
+    project_name = slugify(str(project_name))
 
-    if not package_name:
+    if not package_name or type(package_name).__name__ == 'OptionInfo':
         package_name = Prompt.ask(
             "[bold cyan]Package name[/bold cyan]",
             default=project_name.replace("-", "_"),
         )
-    package_name = validate_package_name(package_name)
+    package_name = validate_package_name(str(package_name))
 
-    if not template:
+    if not template or type(template).__name__ == 'OptionInfo':
         template_table = Table(title="Available Templates", show_header=True, header_style="bold")
         template_table.add_column("Template", style="cyan", no_wrap=True)
         template_table.add_column("Description", style="white")
@@ -65,7 +70,7 @@ def init_command(
             default="basic",
         )
 
-    if not package_manager:
+    if not package_manager or type(package_manager).__name__ == 'OptionInfo':
         # Check if uv is available
         uv_available = shutil.which("uv") is not None
         if uv_available:
@@ -93,10 +98,10 @@ def init_command(
     # Generate project
     try:
         generator = ProjectGenerator(
-            project_name=project_name,
-            package_name=package_name,
-            template=template,
-            package_manager=package_manager,
+            project_name=str(project_name),
+            package_name=str(package_name),
+            template=str(template) if template else "basic",
+            package_manager=str(package_manager) if package_manager else "pip",
             project_path=project_path,
             force=force,
         )
@@ -147,6 +152,6 @@ def init_command(
             console.print("[green]✓[/green] Dependencies installed!")
 
     except Exception as e:
-        console.print(f"[red]Error creating project:[/red] {e}", err=True)
+        err_console.print(f"[red]Error creating project:[/red] {e}")
         raise typer.Exit(1)
 

@@ -12,6 +12,7 @@ from rich.panel import Panel
 from a2abase_cli.generators.shared import ensure_a2abase_sdk_installed, find_project_root
 
 console = Console()
+err_console = Console(file=sys.stderr)
 
 
 def run_command(
@@ -96,7 +97,7 @@ def run_command(
             if result.stdout:
                 console.print(result.stdout)
             if result.stderr:
-                console.print(f"[red]{result.stderr}[/red]", err=True)
+                err_console.print(f"[red]{result.stderr}[/red]")
 
         raise typer.Exit(result.returncode)
 
@@ -104,6 +105,6 @@ def run_command(
         console.print("\n[yellow]Interrupted[/yellow]")
         raise typer.Exit(130)
     except Exception as e:
-        console.print(f"[red]Error running project:[/red] {e}", err=True)
+        err_console.print(f"[red]Error running project:[/red] {e}")
         raise typer.Exit(1)
 

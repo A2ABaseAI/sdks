@@ -10,6 +10,7 @@ from rich.panel import Panel
 from a2abase_cli.generators.shared import find_project_root
 
 console = Console()
+err_console = Console(file=sys.stderr)
 
 
 def test_command(
@@ -58,6 +59,6 @@ def test_command(
         console.print("\n[yellow]Interrupted[/yellow]")
         raise typer.Exit(130)
     except Exception as e:
-        console.print(f"[red]Error running tests:[/red] {e}", err=True)
+        err_console.print(f"[red]Error running tests:[/red] {e}")
         raise typer.Exit(1)
 
