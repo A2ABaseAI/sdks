@@ -1,0 +1,14 @@
+include README.md
+include QUICKSTART.md
+recursive-include src *.py
+recursive-exclude .nenv *
+recursive-exclude .venv *
+recursive-exclude venv *
+recursive-exclude .pytest_cache *
+recursive-exclude htmlcov *
+recursive-exclude dist *
+recursive-exclude build *
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__
+

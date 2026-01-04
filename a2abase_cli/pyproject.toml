@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "a2abase-cli"
-version = "0.1.6"
+version = "0.1.7"
 description = "Production-ready CLI tool for scaffolding A2ABase Agent SDK projects"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -51,6 +51,16 @@ Issues = "https://github.com/A2ABaseAI/sdks/issues"
 
 [tool.hatchling.build]
 packages = ["src/a2abase_cli"]
+exclude = [
+    "/.nenv",
+    "/.venv",
+    "/venv",
+    "/.pytest_cache",
+    "/htmlcov",
+    "/.coverage",
+    "/dist",
+    "/build",
+]
 
 [tool.ruff]
 line-length = 100
