@@ -1,6 +1,7 @@
 from .api.threads import AgentStartRequest
 from .thread import Thread, AgentRun
 from .tools import A2ABaseTools, MCPTools, A2ABaseTool
+from typing import Optional, List, Dict, Any
 from .api.agents import (
     AgentCreateRequest,
     AgentPress_ToolConfig,
@@ -9,6 +10,10 @@ from .api.agents import (
     CustomMCP,
     MCPConfig,
 )
+
+class AgentNotFoundError(Exception):
+    """Exception raised when an agent is not found."""
+    pass
 
 
 class Agent:
@@ -79,10 +84,12 @@ class Agent:
             ),
         )
 
-    async def details(self):
-        response = await self._client.get_agent(self._agent_id)
-        return response
-
+    
+    async def get_details(self):
+        return await self._client.get_agent(self._agent_id)
+    # Alias for backward compatibility and convenience
+    details = get_details
+    
     async def run(
         self,
         prompt: str,
@@ -156,24 +163,28 @@ class A2ABaseAgent:
 
         return Agent(self._client, agent.agent_id)
 
-    async def get(self, agent_id: str) -> Agent:
+    async def get_get_id(self, agent_id: str) -> Agent:
         agent = await self._client.get_agent(agent_id)
         return Agent(self._client, agent.agent_id)
+    
+    async def list_agents(self, page: int = 1, limit: int = 20, search: Optional[str] = None) -> List[Agent]:
+        """List agents with pagination and optional search."""
+        resp = await self._client.get_agents(page=page, limit=limit, search=search)
+        return [Agent(self._client, a.agent_id) for a in resp.agents]
+    
+    # Alias for backward compatibility and convenience
+    list = list_agents
+    get = get_get_id
 
-    async def find_by_name(self, name: str) -> Agent | None:
+    async def find_by_name(self, name: str) -> Agent:
         try:
             resp = await self._client.get_agents(page=1, limit=100, search=name)
             # First try exact match from search results
             for a in resp.agents:
                 if a.name == name:
                     return Agent(self._client, a.agent_id)
-            # If not found and we have more pages, check them
-            if resp.pagination and resp.pagination.pages > 1:
-                for page in range(2, min(resp.pagination.pages + 1, 10)):  # Limit to 10 pages
-                    resp = await self._client.get_agents(page=page, limit=100, search=name)
-                    for a in resp.agents:
-                        if a.name == name:
-                            return Agent(self._client, a.agent_id)
-            return None
-        except Exception:
-            return None
+            raise AgentNotFoundError(f"Agent with name '{name}' not found")
+        except AgentNotFoundError:
+            raise
+        except Exception as e:
+            raise AgentNotFoundError(f"Agent with name '{name}' not found") from e

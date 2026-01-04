@@ -1,14 +1,11 @@
-from dataclasses import dataclass, asdict
-from typing import Optional, List, Dict, Any, AsyncGenerator
+from dataclasses import dataclass, asdict, field
+from typing import Optional, List, Dict, Any, AsyncGenerator, Union
+from enum import Enum
 import httpx
+import json
 
 from ..models import (
-    Role,
     MessageType,
-    BaseMessage,
-    ChatMessage,
-    AgentRun,
-    ContentObject,
 )
 
 
@@ -66,6 +63,149 @@ class Message:
     agent_id: str
     agent_version_id: str
     metadata: Any
+
+
+class StatusType(str, Enum):
+    """Status type values for status messages."""
+    THREAD_RUN_END = "thread_run_end"
+    THREAD_RUN_START = "thread_run_start"
+    ASSISTANT_RESPONSE_START = "assistant_response_start"
+    FINISH = "finish"
+
+
+@dataclass
+class StatusContent:
+    """Content model for status type messages."""
+    status_type: str
+    thread_run_id: Optional[str] = None
+
+
+@dataclass
+class MessageMetadata:
+    """Metadata model for messages."""
+    thread_run_id: Optional[str] = None
+
+
+@dataclass
+class MessageLineResponse:
+    """Data model for message line responses from streaming API."""
+    message_id: str
+    thread_id: str
+    type: str
+    is_llm_message: bool
+    content: Dict[str, Any]
+    metadata: MessageMetadata
+    created_at: str
+    updated_at: str
+    agent_id: Optional[str] = None
+    agent_version_id: Optional[str] = None
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "MessageLineResponse":
+        """Create MessageLineResponse from API response dictionary."""
+        content_str = data.get("content", "{}")
+        if isinstance(content_str, str):
+            try:
+                content = json.loads(content_str)
+            except (json.JSONDecodeError, TypeError):
+                content = {}
+        else:
+            content = content_str
+        
+        # Parse metadata JSON string
+        metadata_str = data.get("metadata", "{}")
+        if isinstance(metadata_str, str):
+            try:
+                metadata_dict = json.loads(metadata_str)
+            except (json.JSONDecodeError, TypeError):
+                metadata_dict = {}
+        else:
+            metadata_dict = metadata_str
+        
+        # Create MessageMetadata object
+        metadata_obj = MessageMetadata(
+            thread_run_id=metadata_dict.get("thread_run_id")
+        )
+        
+        return cls(
+            message_id=data["message_id"],
+            thread_id=data["thread_id"],
+            type=data["type"],
+            is_llm_message=data["is_llm_message"],
+            content=content,
+            metadata=metadata_obj,
+            created_at=data["created_at"],
+            updated_at=data["updated_at"],
+            agent_id=data.get("agent_id"),
+            agent_version_id=data.get("agent_version_id")
+        )
+    
+    def get_status_content(self) -> Optional[StatusContent]:
+        """Get parsed status content if message type is 'status'."""
+        if self.type == "status" and isinstance(self.content, dict):
+            return StatusContent(
+                status_type=self.content.get("status_type", ""),
+                thread_run_id=self.content.get("thread_run_id")
+            )
+        return None
+
+
+@dataclass
+class StatusMessageLineResponse(MessageLineResponse):
+    """Status type message line response."""
+    type: str = field(init=False, default="status")
+    
+    def get_status_type(self) -> Optional[StatusType]:
+        """Get the status type enum value."""
+        if isinstance(self.content, dict):
+            status_type_str = self.content.get("status_type", "")
+            try:
+                return StatusType(status_type_str)
+            except ValueError:
+                return None
+        return None
+
+
+@dataclass
+class AssistantResponseEndMessageLineResponse(MessageLineResponse):
+    """Assistant response end type message line response."""
+    type: str = field(init=False, default="assistant_response_end")
+
+
+@dataclass
+class AssistantMessageLineResponse(MessageLineResponse):
+    """Assistant type message line response."""
+    type: str = field(init=False, default="assistant")
+    
+    def get_content_text(self) -> Optional[str]:
+        """Get the text content from assistant message."""
+        if isinstance(self.content, dict):
+            return self.content.get("content")
+        return None
+
+
+@dataclass
+class UserMessageLineResponse(MessageLineResponse):
+    """User type message line response."""
+    type: str = field(init=False, default="user")
+    
+    def get_content_text(self) -> Optional[str]:
+        """Get the text content from user message."""
+        if isinstance(self.content, str):
+            return self.content
+        elif isinstance(self.content, dict):
+            return self.content.get("content")
+        return None
+
+
+# Union type for all message line response types
+MessageLineResponseType = Union[
+    StatusMessageLineResponse,
+    AssistantResponseEndMessageLineResponse,
+    AssistantMessageLineResponse,
+    UserMessageLineResponse,
+    MessageLineResponse,  # Base type for any other types
+]
 
 
 @dataclass

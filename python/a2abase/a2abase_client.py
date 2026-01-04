@@ -1,6 +1,6 @@
 from .api import agents, threads
 from .agent import A2ABaseAgent
-from .thread import A2ABaseThread
+from .thread import A2ABaseThread, Thread
 
 
 class A2ABaseClient:
@@ -11,4 +11,6 @@ class A2ABaseClient:
         self.Agent = A2ABaseAgent(self._agents_client)
         self.Thread = A2ABaseThread(self._threads_client)
 
-
+    async def new_thread(self, name: str | None = None) -> Thread:
+        """Create a new thread."""
+        return await self.Thread.create(name)
