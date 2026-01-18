@@ -97,7 +97,7 @@ export BASEAI_API_KEY="pk_xxx:sk_xxx"
 <img src="https://img.shields.io/badge/20+_Models-2563eb?style=for-the-badge" alt="Models"/>
 <br/><br/>
 <b>Multi-Provider LLMs</b><br/>
-GPT-5 · Claude 4.5 · Gemini 3<br/>
+OpenAI · Anthropic · Gemini<br/>
 Grok · DeepSeek · GLM
 </td>
 <td align="center" width="25%">
